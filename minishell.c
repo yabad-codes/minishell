@@ -6,11 +6,16 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/05 15:40:18 by yabad            ###   ########.fr       */
+/*   Updated: 2023/06/05 16:36:16 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+
+void	conductor(char *input)
+{
+	lexer(input);
+}
 
 int	main(int ac, char **av, char **env)
 {
@@ -25,7 +30,7 @@ int	main(int ac, char **av, char **env)
 		if (ft_strncmp(input, "\n", ft_strlen(input)))
 		{
 			add_history(input);
-			printf("input : %s\n", input);
+			conductor(input);
 		}
 		free(input);
 	}
