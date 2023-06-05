@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -Werror
 NAME = minishell
 INCLUDES = ./includes
 
-SRC = minishell.c lexer/*.c
+SRC = minishell.c lexer/lexer.c
 
 HEADER = $(INCLUDES)/minishell.h
 LIBFT_DIR = ./Libft
