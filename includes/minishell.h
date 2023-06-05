@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:02:21 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/05 16:17:43 by yabad            ###   ########.fr       */
+/*   Updated: 2023/06/05 16:25:26 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,11 @@
 # include <stdio.h>
 # include <signal.h>
 # include "../Libft/libft.h"
+
+enum e_bool
+{
+	FALSE,
+	TRUE
+};
 
 #endif
