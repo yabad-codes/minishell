@@ -14,21 +14,21 @@ OBJS = $(SRC:.c=.o)
 all: $(NAME)
 
 %.o: %.c $(LIBFT_LIB) $(HEADER)
-	$(CC) -I $(INCLUDES) $(CFLAGS) -I $(READLINE)/include -c $< -o $@
+	@$(CC) -I $(INCLUDES) $(CFLAGS) -I $(READLINE)/include -c $< -o $@
 
 $(NAME): $(OBJS) $(HEADER)
-	$(CC) $(CFLAGS) $(LIBFT_LIB) -L $(READLINE)/lib -lreadline $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(LIBFT_LIB) -L $(READLINE)/lib -lreadline $(OBJS) -o $(NAME)
 
 $(LIBFT_LIB):
-	$(MAKE) bonus -C $(LIBFT_DIR)
+	@$(MAKE) bonus -C $(LIBFT_DIR)
 
 clean:
-	rm -f $(OBJS)
-	$(MAKE) clean -C $(LIBFT_DIR)
+	@rm -f $(OBJS)
+	@$(MAKE) clean -C $(LIBFT_DIR)
 
-fclean:
-	rm -f $(NAME)
-	$(MAKE) fclean -C $(LIBFT_DIR)
+fclean: clean
+	@rm -f $(NAME)
+	@$(MAKE) fclean -C $(LIBFT_DIR)
 
 re: fclean all
 
