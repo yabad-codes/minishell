@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/05 16:36:16 by yabad            ###   ########.fr       */
+/*   Updated: 2023/06/07 10:57:57 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,33 @@ void	conductor(char *input)
 	lexer(input);
 }
 
+static char	*custom_prompt(char *user)
+{
+	char	*prompt;
+	char	*temp_prompt;
+
+	prompt = ft_strjoin(user, "$ ");
+	if (!prompt)
+		prompt = ft_strdup("minishell$ ");
+	temp_prompt = prompt;
+	prompt = ft_strjoin(ANSI_COLOR_SKY_BLUE, temp_prompt);
+	free(temp_prompt);
+	temp_prompt = prompt;
+	prompt = ft_strjoin(temp_prompt, ANSI_COLOR_RESET);
+	free(temp_prompt);
+	return (prompt);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char	*input;
+	char	*prompt;
 
 	(void)ac, (void)av, (void)env;
+	prompt = custom_prompt(getenv("USER"));
 	while (TRUE)
 	{
-		input = readline("minishell$ ");
+		input = readline(prompt);
 		if (!input)
 			break ;
 		if (ft_strncmp(input, "\n", ft_strlen(input)))

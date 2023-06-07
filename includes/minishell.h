@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:02:21 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/05 16:37:43 by yabad            ###   ########.fr       */
+/*   Updated: 2023/06/07 11:01:39 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <stdio.h>
 # include <signal.h>
 # include "../Libft/libft.h"
+
+# define ANSI_COLOR_SKY_BLUE   "\033[1;36m"
+# define ANSI_COLOR_RESET      "\x1b[0m"
 
 enum e_bool
 {
