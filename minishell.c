@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/06 10:08:49 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:43:15 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*custom_prompt(char *user)
 	char	*prompt;
 	char	*temp_prompt;
 
-	prompt = ft_strjoin(getenv("USER"), "$ ");
+	prompt = ft_strjoin(user, "$ ");
 	if (!prompt)
 		prompt = ft_strdup("minishell$ ");
 	temp_prompt = prompt;
