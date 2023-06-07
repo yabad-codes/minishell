@@ -6,11 +6,16 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/07 10:43:15 by yabad            ###   ########.fr       */
+/*   Updated: 2023/06/07 10:57:57 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+
+void	conductor(char *input)
+{
+	lexer(input);
+}
 
 static char	*custom_prompt(char *user)
 {
@@ -44,7 +49,7 @@ int	main(int ac, char **av, char **env)
 		if (ft_strncmp(input, "\n", ft_strlen(input)))
 		{
 			add_history(input);
-			printf("input : %s\n", input);
+			conductor(input);
 		}
 		free(input);
 	}
