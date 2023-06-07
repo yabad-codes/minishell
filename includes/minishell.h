@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:02:21 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/06 10:08:21 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:40:30 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <signal.h>
 # include "../Libft/libft.h"
 
-# define ANSI_COLOR_SKY_BLUE   "\x1b[36m"
+# define ANSI_COLOR_SKY_BLUE   "\033[1;36m"
 # define ANSI_COLOR_RESET      "\x1b[0m"
 
 enum e_bool
