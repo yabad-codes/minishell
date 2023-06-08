@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:51:29 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/08 18:54:04 by yabad            ###   ########.fr       */
+/*   Updated: 2023/06/08 19:04:25 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,20 @@ void	vars_init(t_vars *vars, int *i)
 	vars->tokens = NULL;
 	vars->token = ft_strdup("");
 }
+
+/**
+ * @brief check multiple scenarios : 
+ * scene 1 : not_delimiter -> join
+ * scene 2 : is_delimiter, and this 2nd scene contain 4 other scenarios
+ * 			scene 1 : delimiter is space and token exist
+ * 			scene 2 : delimiter is space and token doesn't exist
+ * 			scene 3 : delimiter is not space and token exist
+ * 			scene 4 : delimiter is not space and token doesn't exist
+ * @param vars	contains all the vars we need
+ * @param i		keep track of the input
+ * @param c	the actual char in the input
+ * @return FALSE if delim is space and !token, TRUE otherwise
+*/
 
 int	run_scenarios(t_vars *vars, int *i, char c)
 {
