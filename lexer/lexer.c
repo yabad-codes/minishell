@@ -6,87 +6,84 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:51:29 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/07 16:47:06 by yabad            ###   ########.fr       */
+/*   Updated: 2023/06/08 18:54:04 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lexer.h"
 
-void	toggle_quote(char c, t_state *toggle)
+typedef struct s_vars
 {
-	if (c == '\'' && *toggle == NONE)
-		*toggle = SINGLE;
-	else if (c == '\"' && *toggle == NONE)
-		*toggle = DOUBLE;
-	else if ((c == '\'' && *toggle == SINGLE) || \
-			(c == '\"' && *toggle == DOUBLE))
-		*toggle = NONE;
+	t_token	*tokens;
+	char	*token;
+	t_state	toggle;
+	int		delim;
+}	t_vars;
+
+int	token_exist(char *token)
+{
+	return (token[0] != '\0');
 }
 
-char	*to_str(char c)
+void	vars_init(t_vars *vars, int *i)
 {
-	char	*s;
-
-	s = (char *)malloc(2);
-	if (!s)
-		return (NULL);
-	s[0] = c;
-	s[1] = '\0';
-	return (s);
+	*i = 0;
+	vars->toggle = NONE;
+	vars->tokens = NULL;
+	vars->token = ft_strdup("");
 }
 
-int	is_delim(char c1, char c2, t_state toggle)
+int	run_scenarios(t_vars *vars, int *i, char c)
 {
-	if (toggle == NONE)
-		return (FALSE);
-	else if (c1 == '>' && c2 == '>')
-		return (APPEND);
-	else if (c1 == '<' && c2 == '<')
-		return (HRDOC);
-	else if (c1 == '|')
-		return (PIPE);
-	else if (c1 == '>')
-		return (OUT);
-	else if (c1 == '<')
-		return (IN);
-	else if (c1 == ' ')
-		return (c1);
+	if (!vars->delim)
+			vars->token = ft_strjoin(vars->token, to_str(c));
 	else
-		return (FALSE);
+	{
+		if (vars->delim == ' ' && token_exist(vars->token))
+			add_token(&vars->tokens, new_token(vars->token, WORD, \
+				is_expandable(vars->token, vars->toggle)));
+		else if (vars->delim == ' ' && !token_exist(vars->token) && (*i)++)
+			return (FALSE);
+		else if (vars->delim && vars->delim != ' ')
+		{
+			if (token_exist(vars->token))
+				add_token(&vars->tokens, new_token(vars->token, WORD, \
+						is_expandable(vars->token, vars->toggle)));
+			add_token(&vars->tokens, new_token(to_str(vars->delim), \
+					vars->delim, FALSE));
+			if (vars->delim == HRDOC || vars->delim == APPEND)
+				(*i)++;
+		}
+		vars->token = ft_strdup("");
+	}
+	return (TRUE);
 }
 
 t_token	*get_tokens(char *input)
 {
-	t_token	*tokens;
-	t_state	toggle;
-	char	*token;
+	t_vars	vars;
 	int		i;
 
-	i = 0;
-	toggle = NONE;
-	token = "";
+	vars_init(&vars, &i);
 	while (input[i])
 	{
-		toggle_quote(input[i], &toggle);
-		if (!delim(input[i]) || (delim(input[i]) && toggle))
-			ft_strjoin(token, to_str(input[i]));
-		else if (delim(input[i]) == ' ')
-			add_token(&tokens, new_token(token, WORD, FALSE));
-		else
-		{
-			add_token(&token, new_token(token, WORD, FALSE));
-		}
+		toggle_quote(input[i], &(vars.toggle));
+		vars.delim = is_delim(input[i], input[i + 1], vars.toggle);
+		if (!run_scenarios(&vars, &i, input[i]))
+			continue ;
 		i++;
 	}
-	return (tokens);
+	if (token_exist(vars.token))
+		add_token(&vars.tokens, new_token(vars.token, WORD, \
+			is_expandable(vars.token, vars.toggle)));
+	return (vars.tokens);
 }
 
 void	lexer(char *input)
 {
 	t_token	*tokens;
 
-	tokens = get_tokens(ft_strtrim(input, " "));
-	free(input);
+	tokens = get_tokens(input);
 	print_tokens(tokens);
 	return ;
 }
