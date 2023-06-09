@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:02:21 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/08 12:01:22 by yabad            ###   ########.fr       */
+/*   Updated: 2023/06/09 12:51:30 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@
 # define ANSI_COLOR_SKY_BLUE   "\033[1;36m"
 # define ANSI_COLOR_RESET      "\x1b[0m"
 
-void	lexer(char *input);
+t_token	*lexer(char *input);
 
 #endif

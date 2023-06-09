@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:02:19 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/08 14:52:09 by yabad            ###   ########.fr       */
+/*   Updated: 2023/06/09 12:24:59 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,8 @@ int	is_expandable(char *token, t_state state)
 	while (*token)
 	{
 		if (*token == '$')
-		{
 			contain_dollar = TRUE;
-			break ;
-		}
 		token++;
 	}
-	return (contain_dollar && (state == NONE || state == DOUBLE));
+	return (contain_dollar && (*(token - 1) != '\''));
 }

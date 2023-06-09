@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:51:37 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/08 12:06:30 by yabad            ###   ########.fr       */
+/*   Updated: 2023/06/09 10:01:55 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,7 @@ void	toggle_quote(char c, t_state *toggle);
  * @return TRUE expandable, otherwise FALSE
 */
 int		is_expandable(char *token, t_state state);
+
+void	print_tokens(t_token *tokens);
 
 #endif
