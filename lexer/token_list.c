@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   token_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 08:27:45 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/06/08 08:56:15 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/06/08 12:02:34 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "../includes/lexer.h"
 
-t_token	*new_token(char *content, t_token_type type, t_state expand)
+t_token	*new_token(char *content, t_token_type type, t_expand expand)
 {
 	t_token	*new;
 

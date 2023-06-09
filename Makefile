@@ -1,9 +1,9 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 NAME = minishell
 INCLUDES = ./includes
 
-SRC = minishell.c lexer/lexer.c
+SRC = minishell.c lexer/lexer.c lexer/token_list.c lexer/utils.c
 
 HEADER = $(INCLUDES)/minishell.h
 LIBFT_DIR = ./Libft
