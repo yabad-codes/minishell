@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:02:19 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/09 12:24:59 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/06/14 09:34:04 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	is_delim(char c1, char c2, t_state toggle)
 		return (FALSE);
 }
 
-int	is_expandable(char *token, t_state state)
+int	is_expandable(char *token)
 {
 	int	contain_dollar;
 

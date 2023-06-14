@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 09:46:08 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/13 13:33:16 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/06/14 09:33:13 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef enum e_separator
 static t_separator	detect_sep(t_token	*token)
 {
 	if (token == NULL)
-		return (NONE);
+		return (NO_SEP);
 	if (ft_strnstr(token->token, "\"", ft_strlen(token->token)) ||\
 	 ft_strnstr(token->token, "'", ft_strlen(token->token)))
 		return (QUOTE_SEP);
