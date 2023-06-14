@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 19:11:41 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/09 11:55:33 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/06/14 09:31:56 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ char	*token_type(t_token_type type)
 		return ("PIPE");
 	else if (type == IN)
 		return ("REDIR_IN");
-	else if (type == OUT)
-		return ("REDIR_OUT");	
+	else
+		return ("REDIR_OUT");
 }
 
 void	print_tokens(t_token *tokens)

@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:51:29 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/09 12:51:18 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/06/14 09:35:43 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	run_scenarios(t_vars *vars, char c)
 		if (token_exist(vars->token))
 		{
 			add_token(&vars->tokens, new_token(vars->token, WORD, \
-						is_expandable(vars->token, vars->toggle)));
+						is_expandable(vars->token)));
 			vars->token = ft_strdup("");
 		}
 		if (vars->delim != ' ')
@@ -80,7 +80,7 @@ t_token	*get_tokens(char *input)
 	}
 	if (token_exist(vars.token))
 		add_token(&vars.tokens, new_token(vars.token, WORD, \
-			is_expandable(vars.token, vars.toggle)));
+			is_expandable(vars.token)));
 	return (vars.tokens);
 }
 
