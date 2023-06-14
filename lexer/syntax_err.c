@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 09:46:08 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/14 09:33:13 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/06/14 11:35:39 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,24 @@ typedef enum e_separator
 }	t_separator;
 
 //1- unclosed quote --> echo "hello --> syntax error: unclosed quotes
-//2- no left command before pipe --> | ls --> syntax error near unexpected token `|'
-//3- no right command after pipe --> ls | --> syntax error near unexpected token `newline'
-//4- no right file after redirection --> ls > --> syntax error near unexpected token `newline'
+//2- no left command before pipe --> |
+// ls --> syntax error near unexpected token `|'
+//3- no right command after pipe --> 
+// ls | --> syntax error near unexpected token `newline'
+//4- no right file after redirection --> 
+// ls > --> syntax error near unexpected token `newline'
 
 static t_separator	detect_sep(t_token	*token)
 {
-	if (token == NULL)
-		return (NO_SEP);
-	if (ft_strnstr(token->token, "\"", ft_strlen(token->token)) ||\
-	 ft_strnstr(token->token, "'", ft_strlen(token->token)))
+	if (ft_strchr(token->token, '"') || ft_strchr(token->token, '\''))
 		return (QUOTE_SEP);
 	else if (!ft_strncmp(token->token, "|", 1))
 		return (PIPE_SEP);
-	else if (!ft_strncmp(token->token, ">", 1) || !ft_strncmp(token->token, "<", 1) ||\
-	 !ft_strncmp(token->token, ">>", 2) || !ft_strncmp(token->token, "<<", 2))
-	 	return (REDIR_SEP);
+	else if (!ft_strncmp(token->token, ">>", ft_strlen(token->token)) || \
+		!ft_strncmp(token->token, "<<", ft_strlen(token->token)) || \
+		!ft_strncmp(token->token, ">", ft_strlen(token->token)) || \
+		!ft_strncmp(token->token, "<", ft_strlen(token->token)))
+		return (REDIR_SEP);
 	else
 		return (NO_SEP);
 }
@@ -58,13 +60,9 @@ static void	error_message(t_error_code error)
 		printf("syntax error: unclosed quotes\n");
 	else if (error == NO_LEFT_CMD_BEFORE_PIPE)
 		printf("syntax error near unexpected token `|'\n");
-	else if (error == NO_RIGHT_CMD_AFTER_PIPE)
-		printf("syntax error near unexpected token `newline'\n");
 	else
 		printf("syntax error near unexpected token `newline'\n");
 }
-
-
 
 static t_error_code	get_error_code(t_token *tokens)
 {
@@ -73,7 +71,7 @@ static t_error_code	get_error_code(t_token *tokens)
 	prev = NULL;
 	while (tokens)
 	{
-		if (detect_sep(tokens) == QUOTE_SEP && !matched_quotes(&tokens))
+		if (detect_sep(tokens) == QUOTE_SEP && !matched_quotes(tokens))
 			return (UNCLOSED_QUOTES);
 		else if (detect_sep(tokens) == PIPE_SEP && !is_word_type_before(prev))
 			return (NO_LEFT_CMD_BEFORE_PIPE);
@@ -87,10 +85,11 @@ static t_error_code	get_error_code(t_token *tokens)
 	return (NO_ERROR);
 }
 
-void	check_syntax_error(t_token *tokens)
+int	check_syntax_error(t_token *tokens)
 {
 	t_error_code	error_code;
 
 	error_code = get_error_code(tokens);
 	error_message(error_code);
+	return (error_code == NO_ERROR);
 }
