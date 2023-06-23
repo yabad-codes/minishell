@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:21:10 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/23 15:28:44 by yabad            ###   ########.fr       */
+/*   Updated: 2023/06/23 18:41:05 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	delete_cmd(t_cmd *cmd);
 /**
  * @brief Create a node (either pipe node or cmd node)
  * @param cmd	cmd node (NULL if the type is NODE_PIPE)
- * @param type	contain the list of redir (if exist).
+ * @param type	node type (either NODE_PIPE NODE_CMD).
  * @return	The newly created node.
 */
 t_node	*create_node(t_cmd *cmd, t_node_type type);
