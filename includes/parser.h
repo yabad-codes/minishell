@@ -6,12 +6,14 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:21:10 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/24 12:33:38 by yabad            ###   ########.fr       */
+/*   Updated: 2023/06/24 12:49:46 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
+
+#include <stdlib.h>
 
 typedef enum e_redir_type
 {

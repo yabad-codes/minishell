@@ -3,7 +3,17 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 NAME = minishell
 INCLUDES = ./includes
 
-SRC = minishell.c lexer/lexer.c lexer/token_list.c lexer/utils.c
+SRC = 	minishell.c \
+		lexer/lexer.c \
+		lexer/token_list.c \
+		lexer/utils.c \
+		lexer/print_tokens.c \
+		lexer/syntax_err_utils.c \
+		lexer/syntax_err.c \
+		parser/parser.c \
+		parser/parse_list.c \
+		parser/parse_list_plus.c
+
 
 HEADER = $(INCLUDES)/minishell.h
 LIBFT_DIR = ./Libft
