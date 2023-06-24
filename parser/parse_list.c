@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 16:02:48 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/24 12:43:00 by yabad            ###   ########.fr       */
+/*   Updated: 2023/06/24 13:01:42 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,5 @@ void	delete_node(t_node *node)
 		return ;
 	if (node->cmd)
 		delete_cmd(node->cmd);
+	free(node);
 }
