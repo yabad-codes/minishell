@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:21:10 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/26 15:05:31 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/01 13:05:39 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 # define PARSER_H
 
 # include "minishell.h"
+# include "lexer.h"
 
 typedef enum e_redir_type
 {
-	REDIR_NONE,
-	REDIR_IN,
-	REDIR_OUT,
-	REDIR_APPEND,
-	REDIR_HEREDOC
+	NONE,
+	IN = '<',
+	OUT = '>',
+	APPEND = -3,
+	HRDOC = -2
 }	t_redir_type;
 
 typedef enum e_node_type
@@ -110,5 +111,14 @@ t_node	*create_node(t_cmd *cmd, t_node_type type);
  * @param node	node you want to delete.
 */
 void	delete_node(t_node *node);
+
+/**
+ * @brief Expand shell variable that are expandable
+ * @param token_head
+ * @param is_expand
+ * @param token_value
+ * @return The value of the variable if EXPANDABLE, or the variable itself if not.
+*/
+char	*expand_var(t_token *token_head, t_expand is_expand, char *token_value);
 
 #endif
