@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 18:21:42 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/06/28 19:52:06 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/04 11:21:05 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "../includes/minishell.h"
+#include "../includes/parser.h"
 
 static char	*ft_charjoin(char *str, char c)
 {

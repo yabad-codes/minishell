@@ -6,24 +6,14 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:21:10 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/01 13:05:39 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/04 22:26:26 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-# include "minishell.h"
 # include "lexer.h"
-
-typedef enum e_redir_type
-{
-	NONE,
-	IN = '<',
-	OUT = '>',
-	APPEND = -3,
-	HRDOC = -2
-}	t_redir_type;
 
 typedef enum e_node_type
 {
@@ -33,7 +23,7 @@ typedef enum e_node_type
 
 typedef struct s_redir
 {
-	t_redir_type	type;
+	t_token_type	type;
 	char			*file;
 	struct s_redir	*next;
 }	t_redir;
@@ -63,7 +53,7 @@ typedef struct s_ast
  * @param file		the file to redirect to.
  * @return A newly allocated redir data type
 */
-t_redir	*new_redir(t_redir_type type, char *file);
+t_redir	*new_redir(t_token_type type, char *file);
 
 /**
  * @brief Add the new allocated redir node to a list
@@ -120,5 +110,29 @@ void	delete_node(t_node *node);
  * @return The value of the variable if EXPANDABLE, or the variable itself if not.
 */
 char	*expand_var(t_token *token_head, t_expand is_expand, char *token_value);
+
+/**
+ * @brief remove quotes for t_token variables
+ * @param token_head the token to process
+ * @param token_value the value of the token to process
+ * @return the value without quotes
+*/
+char	*remove_quotes(t_token *token_head, char *token_value);
+
+/**
+ * @brief Parse the command
+ * @param token_head	the token to process
+ * @param tracker		the index of the token we are processing
+ * @return The newly created node.
+*/
+t_ast	*parse_cmd(t_token *token_head, int *tracker);
+
+/**
+ * @brief add a new command argument to the command
+ * @param cmd_arg	the command argument to add
+ * @param new		the new command argument to add
+*/
+void	add_cmd_arg(char ***cmd_arg, char *new);
+void	print_cmd_arg(char **cmd_arg);
 
 #endif

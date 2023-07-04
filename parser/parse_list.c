@@ -6,10 +6,11 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 16:02:48 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/24 13:01:42 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/04 22:02:50 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/minishell.h"
 #include "../includes/parser.h"
 
 t_cmd	*create_cmd(char **cmd_args, t_redir *redir)
@@ -19,10 +20,8 @@ t_cmd	*create_cmd(char **cmd_args, t_redir *redir)
 	cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
-	if (cmd_args)
-		cmd->cmd_args = cmd_args;
-	if (redir)
-		cmd->redir = redir;
+	cmd->cmd_args = cmd_args;
+	cmd->redir = redir;
 	return (cmd);
 }
 
@@ -57,8 +56,7 @@ t_node	*create_node(t_cmd *cmd, t_node_type type)
 	node = (t_node *)malloc(sizeof(t_node));
 	if (!node)
 		return (NULL);
-	if (cmd)
-		node->cmd = cmd;
+	node->cmd = cmd;
 	node->type = type;
 	return (node);
 }

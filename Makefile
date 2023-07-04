@@ -4,15 +4,19 @@ NAME = minishell
 INCLUDES = ./includes
 
 SRC = 	minishell.c \
+		free.c \
+		print.c \
 		lexer/lexer.c \
 		lexer/token_list.c \
 		lexer/utils.c \
-		lexer/print_tokens.c \
 		lexer/syntax_err_utils.c \
 		lexer/syntax_err.c \
 		parser/parser.c \
 		parser/parse_list.c \
-		parser/parse_list_plus.c
+		parser/parse_list_plus.c \
+		parser/parse_cmd.c \
+		parser/parser_utils.c \
+		parser/exec_arg.c
 
 
 HEADER = $(INCLUDES)/minishell.h

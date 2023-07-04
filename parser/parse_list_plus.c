@@ -6,13 +6,14 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:40:11 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/24 12:50:19 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/04 11:20:02 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/minishell.h"
 #include "../includes/parser.h"
 
-t_redir	*new_redir(t_redir_type type, char *file)
+t_redir	*new_redir(t_token_type type, char *file)
 {
 	t_redir	*redir;
 
