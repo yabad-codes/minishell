@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/09 12:52:55 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/04 10:44:28 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,13 @@
 void	conductor(char *input)
 {
 	t_token	*tokens;
+	t_ast	*ast;
 
+	ast = NULL;
 	tokens = lexer(input);
-	check_syntax_error(tokens);
+	if (check_syntax_error(tokens))
+		ast = parser(tokens);
+	//executor(ast);
 }
 
 static char	*custom_prompt(char *user)

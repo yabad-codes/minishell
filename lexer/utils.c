@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:02:19 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/14 09:34:04 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/04 11:24:57 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/minishell.h"
 #include "../includes/lexer.h"
 
 void	toggle_quote(char c, t_state *toggle)
