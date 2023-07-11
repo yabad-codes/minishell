@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:02:21 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/04 11:55:22 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/08 10:46:41 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 # include <stdio.h>
 # include <signal.h>
 # include "../Libft/libft.h"
-# include "parser.h"
 # include "lexer.h"
+# include "parser.h"
+# include "executor.h"
 
 # define ANSI_COLOR_SKY_BLUE   "\033[1;36m"
 # define ANSI_COLOR_RESET      "\x1b[0m"

@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/04 10:44:28 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/11 14:55:06 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,13 @@ void	conductor(char *input)
 	ast = NULL;
 	tokens = lexer(input);
 	if (check_syntax_error(tokens))
+	{
 		ast = parser(tokens);
-	//executor(ast);
+		if (!ast)
+			return ;
+		executor(ast);
+	}
+	return ;
 }
 
 static char	*custom_prompt(char *user)
