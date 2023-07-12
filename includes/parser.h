@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:21:10 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/04 22:26:26 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/12 15:04:53 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	delete_node(t_node *node);
  * @param token_value
  * @return The value of the variable if EXPANDABLE, or the variable itself if not.
 */
-char	*expand_var(t_token *token_head, t_expand is_expand, char *token_value);
+char	*expand_var(t_token *token_head, t_expand is_expand, char *token_val);
 
 /**
  * @brief remove quotes for t_token variables
@@ -118,6 +118,14 @@ char	*expand_var(t_token *token_head, t_expand is_expand, char *token_value);
  * @return the value without quotes
 */
 char	*remove_quotes(t_token *token_head, char *token_value);
+
+/**
+ * @brief Join character to a string
+ * @param str The previous string
+ * @param c The character to join to str
+ * @return A newly allocated string with the character
+*/
+char	*ft_charjoin(char *str, char c);
 
 /**
  * @brief Parse the command
