@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/11 14:55:06 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/12 19:04:04 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	conductor(char *input)
 		ast = parser(tokens);
 		if (!ast)
 			return ;
-		executor(ast);
+		execute(ast, ast);
 	}
 	return ;
 }
