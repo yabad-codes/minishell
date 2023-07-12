@@ -6,11 +6,11 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:51:23 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/12 15:06:08 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:03:54 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minishell.h"
 
 static int	successive_dollars(t_token *token_head, char *token_val, char **val)
 {
@@ -74,6 +74,18 @@ static int	detect_env_and_join(t_token *token_head, char *token_val, \
 	return (FALSE);
 }
 
+static int	join_chars(t_token *token_head, char **val, char c)
+{
+	if (c)
+	{
+		*val = ft_charjoin(*val, c);
+		if (!*val)
+			free_tokens_and_exit(token_head);
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
 char	*expand_var(t_token *token_head, t_expand is_expand, char *token_val)
 {
 	char	*expand_val;
@@ -92,10 +104,8 @@ char	*expand_var(t_token *token_head, t_expand is_expand, char *token_val)
 		if (detect_env_and_join(token_head, &token_val[tok_pos], \
 		&expand_val, &tok_pos))
 			continue ;
-		expand_val = ft_charjoin(expand_val, token_val[tok_pos]);
-		if (!expand_val)
-			free_tokens_and_exit(token_head);
-		tok_pos++;
+		if (join_chars(token_head, &expand_val, token_val[tok_pos]))
+			tok_pos++;
 	}
 	free(token_val);
 	return (expand_val);
