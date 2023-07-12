@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 10:43:58 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/08 10:47:37 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/12 19:03:43 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,5 @@
  * @brief The starting point of execution
  * @param ast Our tree
 */
-void	executor(t_ast *ast);
+void	execute(t_ast *ast, t_ast *head);
 #endif

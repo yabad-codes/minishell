@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -fsanitize=address -g
 NAME = minishell
 INCLUDES = ./includes
 
@@ -16,7 +16,8 @@ SRC = 	minishell.c \
 		parser/parse_list_plus.c \
 		parser/parse_cmd.c \
 		parser/parser_utils.c \
-		parser/exec_arg.c
+		parser/exec_arg.c \
+		exec/exec.c
 
 
 HEADER = $(INCLUDES)/minishell.h
