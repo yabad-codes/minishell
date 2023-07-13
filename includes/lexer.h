@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:51:37 by yabad             #+#    #+#             */
-/*   Updated: 2023/06/14 11:32:21 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/04 22:07:49 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
-
 
 /***********************/
 /*   Data structures   */
@@ -45,8 +44,6 @@ typedef struct s_token
 	t_expand		expand;
 	struct s_token	*next;
 }	t_token;
-
-# include "minishell.h"
 
 /***********************/
 /*      Functions      */
@@ -110,8 +107,6 @@ void	toggle_quote(char c, t_state *toggle);
  * @return TRUE expandable, otherwise FALSE
 */
 int		is_expandable(char *token);
-
-void	print_tokens(t_token *tokens);
 
 /**
  * @brief Check if the quotes is matched and closed
