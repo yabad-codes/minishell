@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 18:09:52 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/04 22:40:57 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/12 20:09:49 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,14 @@ t_ast	*build_cmd(char **cmd_arg, t_redir *redir_list)
 t_token	*expand(t_token *token_head)
 {
 	t_token	*new;
+	t_token	*tmp;
 
 	new = NULL;
+	tmp = token_head;
 	while (token_head)
 	{
-		add_token(&new, new_token(expand_var(token_head, token_head->expand, \
-				remove_quotes(token_head, token_head->token)), token_head->type, FALSE));
+		add_token(&new, new_token(expand_var(tmp, token_head->expand, \
+				remove_quotes(tmp, token_head->token)), token_head->type, FALSE));
 		token_head = token_head->next;
 	}
 	clear_tokens(token_head);

@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:56:43 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/12 19:03:07 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/13 18:11:56 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	execute_cmd(t_cmd *cmd)
 {
-	int	id;
+	int		id;
 
 	id = fork();
 	if (id == 0)
 	{
-		execv("/bin/cat", cmd->cmd_args);
+		execv(get_path(cmd->cmd_args[0]), cmd->cmd_args);
 		perror("execv failed\n");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	waitpid(id, 0, 0);
 }
@@ -32,6 +32,7 @@ void	execute_left(t_ast *ast, t_ast *head, int *fd)
 	dup2(fd[1], STDOUT_FILENO);
 	execute(ast->left, head);
 	close(fd[1]);
+	printf("HERE LEFT\n");
 	exit(1);
 }
 
@@ -41,12 +42,13 @@ void	execute_right(t_ast *ast, t_ast *head, int *fd)
 	dup2(fd[0], STDIN_FILENO);
 	execute(ast->right, head);
 	close(fd[0]);
+	printf("HERE RIGHT\n");
 	exit(1);
 }
 
 void	execute(t_ast *ast, t_ast *head)
 {
-	int	fd[2];
+	int		fd[2];
 	pid_t	lchild_pid;
 	pid_t	rchild_pid;
 
@@ -66,6 +68,8 @@ void	execute(t_ast *ast, t_ast *head)
 		rchild_pid = fork();
 		if (rchild_pid == 0)
 			execute_right(ast, head, fd);
+		close(fd[1]);
+		close(fd[0]);
 		waitpid(lchild_pid, 0, 0);
 		waitpid(rchild_pid, 0, 0);
 	}
