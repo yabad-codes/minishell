@@ -17,7 +17,9 @@ SRC = 	minishell.c \
 		parser/parse_cmd.c \
 		parser/parser_utils.c \
 		parser/exec_arg.c \
-		exec/exec.c
+		parser/expand_variables.c \
+		exec/exec.c \
+		exec/get_path.c
 
 
 HEADER = $(INCLUDES)/minishell.h
