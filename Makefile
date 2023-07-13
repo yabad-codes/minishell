@@ -17,6 +17,7 @@ SRC = 	minishell.c \
 		parser/parse_cmd.c \
 		parser/parser_utils.c \
 		parser/exec_arg.c \
+		parser/expand_variables.c
 		exec/exec.c
 
 
