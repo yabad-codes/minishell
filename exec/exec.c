@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:56:43 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/13 18:11:56 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/14 09:35:26 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 void	execute_cmd(t_cmd *cmd)
 {
-	int		id;
+	int				id;
+	t_builtin_type	builtin;
 
+	builtin = is_builtin(cmd->cmd_args[0]);
+	if (builtin)
+		execute_builtin(cmd, builtin);
 	id = fork();
 	if (id == 0)
 	{
@@ -23,7 +27,8 @@ void	execute_cmd(t_cmd *cmd)
 		perror("execv failed\n");
 		exit(EXIT_FAILURE);
 	}
-	waitpid(id, 0, 0);
+	else
+		waitpid(id, 0, 0);
 }
 
 void	execute_left(t_ast *ast, t_ast *head, int *fd)
@@ -32,8 +37,7 @@ void	execute_left(t_ast *ast, t_ast *head, int *fd)
 	dup2(fd[1], STDOUT_FILENO);
 	execute(ast->left, head);
 	close(fd[1]);
-	printf("HERE LEFT\n");
-	exit(1);
+	exit(EXIT_SUCCESS);
 }
 
 void	execute_right(t_ast *ast, t_ast *head, int *fd)
@@ -42,8 +46,7 @@ void	execute_right(t_ast *ast, t_ast *head, int *fd)
 	dup2(fd[0], STDIN_FILENO);
 	execute(ast->right, head);
 	close(fd[0]);
-	printf("HERE RIGHT\n");
-	exit(1);
+	exit(EXIT_SUCCESS);
 }
 
 void	execute(t_ast *ast, t_ast *head)
