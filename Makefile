@@ -19,7 +19,10 @@ SRC = 	minishell.c \
 		parser/exec_arg.c \
 		parser/expand_variables.c \
 		exec/exec.c \
-		exec/get_path.c
+		exec/get_path.c \
+		exec/builtins.c \
+		exec/builtins_plus.c \
+		exec/builtins_call.c
 
 
 HEADER = $(INCLUDES)/minishell.h

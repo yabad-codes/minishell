@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builins_call.c                                     :+:      :+:    :+:   */
+/*   builtins_call.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:55:18 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/13 19:20:56 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/14 10:17:38 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,19 @@ t_builtin_type	is_builtin(char *cmd)
 	size_t	cmd_len;
 
 	cmd_len = ft_strlen(cmd);
-	if (ft_strncmp(cmd, "echo", cmd_len))
+	if (!ft_strncmp(cmd, "echo", cmd_len))
 		return (ECHO);
-	else if (ft_strncmp(cmd, "cd", cmd_len))
+	else if (!ft_strncmp(cmd, "cd", cmd_len))
 		return (CD);
-	else if (ft_strncmp(cmd, "pwd", cmd_len))
+	else if (!ft_strncmp(cmd, "pwd", cmd_len))
 		return (PWD);
-	else if (ft_strncmp(cmd, "EXPORT", cmd_len))
+	else if (!ft_strncmp(cmd, "EXPORT", cmd_len))
 		return (EXPORT);
-	else if (ft_strncmp(cmd, "unset", cmd_len))
+	else if (!ft_strncmp(cmd, "unset", cmd_len))
 		return (UNSET);
-	else if (ft_strncmp(cmd, "env", cmd_len))
+	else if (!ft_strncmp(cmd, "env", cmd_len))
 		return (ENV);
-	else if (ft_strncmp(cmd, "exit", cmd_len))
+	else if (!ft_strncmp(cmd, "exit", cmd_len))
 		return (EXIT);
 	return (NOT_BUILTIN);
 }

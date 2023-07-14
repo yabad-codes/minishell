@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 19:36:29 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/13 19:41:10 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/14 10:21:33 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,25 @@
 
 void	ft_echo(t_cmd *cmd)
 {
-	printf("execute echo\n");
+	bool	n_option;
+	int		i;
+
+	n_option = false;
+	i = 1;
+	if (!ft_strncmp(cmd->cmd_args[i], "-n", sizeof(cmd->cmd_args[i])))
+	{
+		n_option = true;
+		i++;
+	}
+	while (cmd->cmd_args[i])
+	{
+		printf("%s", cmd->cmd_args[i]);
+		if (cmd->cmd_args[i + 1])
+			printf(" ");
+		i++;
+	}
+	if (n_option == false)
+		printf("\n");
 }
 
 void	ft_cd(t_cmd *cmd)

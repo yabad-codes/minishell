@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:02:21 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/12 17:50:14 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/14 09:55:20 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <signal.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <stdbool.h>
 # include "../Libft/libft.h"
 # include "lexer.h"
 # include "parser.h"

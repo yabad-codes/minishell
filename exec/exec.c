@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:56:43 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/14 09:35:26 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/14 10:16:33 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	execute_cmd(t_cmd *cmd)
 
 	builtin = is_builtin(cmd->cmd_args[0]);
 	if (builtin)
+	{
 		execute_builtin(cmd, builtin);
+		return ;
+	}
 	id = fork();
 	if (id == 0)
 	{
