@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 10:43:58 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/14 10:11:21 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/17 13:19:29 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTOR_H
 # define EXECUTOR_H
+
 # include "parser.h"
 
 typedef enum e_builtin_type
@@ -25,6 +26,13 @@ typedef enum e_builtin_type
 	ENV,
 	EXIT
 }	t_builtin_type;
+
+typedef struct s_redir_error
+{
+	char	*filename;
+	char	*error_message;
+	bool	is_error;
+}	t_redir_error;
 
 /**
  * @brief The starting point of execution
@@ -45,4 +53,16 @@ void			ft_export(t_cmd *cmd);
 void			ft_unset(t_cmd *cmd);
 void			ft_env(t_cmd *cmd);
 void			ft_exit(t_cmd *cmd);
+
+/**
+ * Redirections
+*/
+void	handling_redirections(t_redir *list, t_redir_error *error);
+void	out_redir(char *filename, t_redir_error *error, int *fd_out);
+void	append_redir(char *filename, t_redir_error *error, int *fd_out);
+void	in_redir(char *filename, t_redir_error *error, int *fd_in);
+void	herdoc_redir(char *delimiter, t_redir_error *error, int *fd_in);
+
+void	error_file_message(char *filename, char *error_message);
+
 #endif
