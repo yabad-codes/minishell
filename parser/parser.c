@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:20:54 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/04 22:34:05 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/19 13:06:11 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ t_ast	*parser(t_token *tokens)
 	ast = NULL;
 	tracker_cmd = 0;
 	ast = build_ast(tokens, search_pipe(tokens), &tracker_cmd);
-	print_ast(ast);
+	// print_ast(ast);
 	return (ast);
 }

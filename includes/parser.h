@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:21:10 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/12 15:04:53 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/19 12:48:16 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_redir
 {
 	t_token_type	type;
 	char			*file;
+	char			*herdoc_file;
 	struct s_redir	*next;
 }	t_redir;
 

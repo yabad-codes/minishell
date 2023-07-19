@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_err.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 09:46:08 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/04 11:25:08 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/19 13:02:05 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static t_error_code	get_error_code(t_token *tokens)
 			return (UNCLOSED_QUOTES);
 		else if (detect_sep(tokens) == PIPE_SEP && !is_word_type_before(prev))
 			return (NO_LEFT_CMD_BEFORE_PIPE);
-		else if (detect_sep(tokens) == PIPE_SEP && !is_word_type_after(tokens))
+		else if (detect_sep(tokens) == PIPE_SEP && !valid_syntax_after(tokens))
 			return (NO_RIGHT_CMD_AFTER_PIPE);
 		else if (detect_sep(tokens) == REDIR_SEP && !is_word_type_after(tokens))
 			return (NO_RIGHT_FILE_AFTER_REDIRECTION);
