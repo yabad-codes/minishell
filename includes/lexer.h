@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:51:37 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/19 13:03:41 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/19 16:57:13 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	toggle_quote(char c, t_state *toggle);
  * @param state token state, inside quotes or not
  * @return TRUE expandable, otherwise FALSE
 */
-int		is_expandable(char *token);
+int		is_expandable(int prev_delim, char *token);
 
 /**
  * @brief Check if the quotes is matched and closed
