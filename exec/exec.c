@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:56:43 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/17 13:19:35 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/19 10:23:29 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ void	execute_cmd(t_cmd *cmd)
 			if (builtin)
 			{
 				execute_builtin(cmd, builtin);
-				exit(EXIT_SUCCESS) ;
+				exit(EXIT_SUCCESS);
 			}
 			execv(get_path(cmd->cmd_args[0]), cmd->cmd_args);
 			if (!ft_strncmp(strerror(errno), "Bad address", 11))
 				error_file_message(cmd->cmd_args[0], "command not found");
 			exit(EXIT_FAILURE);
 		}
+		exit(EXIT_SUCCESS);
 	}
 	else if (id > 0)
 		waitpid(id, 0, 0);

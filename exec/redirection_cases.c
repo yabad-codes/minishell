@@ -6,16 +6,14 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:47:55 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/17 16:01:41 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/19 09:35:15 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 void	out_redir(char *filename, t_redir_error *error, int *fd_out)
 {
-	if (open(filename, O_EXCL) == -1 && !access(filename, W_OK))
-		unlink(filename);
 	if (error->is_error == false)
 	{
 		*fd_out = open(filename, O_CREAT | O_TRUNC | O_WRONLY, 0644);
@@ -59,45 +57,25 @@ void	in_redir(char *filename, t_redir_error *error, int *fd_in)
 	}
 }
 
-void	write_to_tmpfile(char *delim, int *fd_in)
+void	herdoc_redir(char *file, \
+t_redir_error *error, int *fd_in)
 {
-	char	*line;
-	char	*tmp_line;
-
-	line = get_next_line(STDIN_FILENO);
-	while (line != NULL)
+	*fd_in = open(file, O_CREAT | O_RDWR, 0644);
+	if (*fd_in == -1)
 	{
-		tmp_line = ft_strdup(line);
-		tmp_line[ft_strlen(tmp_line) - 1] = 0;
-		if (!ft_strncmp(tmp_line, delim, ft_strlen(line)))
-		{
-			free(tmp_line);
-			free(line);
-			break ;
-		}
-		free(tmp_line);
-		line = expand_var(NULL, TRUE, line);
-		write(*fd_in, line, ft_strlen(line));
-		line = get_next_line(STDIN_FILENO);
+		printf("Error opening the tmpfile\n");
+		error->is_error = true;
 	}
 }
 
-void	herdoc_redir(char *delimiter, t_redir_error *error, int *fd_in)
+void	launch_redirections(t_redir *list, t_redir_error *error, t_fds *fds)
 {
-	unlink("/tmp/tmpfile");
-	*fd_in = open("/tmp/tmpfile", O_CREAT | O_RDWR, 0644);
-	if (*fd_in == -1)
-	{
-		printf("Error opening the tmpfile\n");
-		error->is_error = true;
-	}
-	write_to_tmpfile(delimiter, fd_in);
-	close(*fd_in);
-	*fd_in = open("/tmp/tmpfile", O_CREAT | O_RDWR, 0644);
-	if (*fd_in == -1)
-	{
-		printf("Error opening the tmpfile\n");
-		error->is_error = true;
-		exit(1);
-	}
+	if (list->type == OUT)
+		out_redir(list->file, error, &(fds->fd_out));
+	else if (list->type == IN)
+		in_redir(list->file, error, &(fds->fd_in));
+	else if (list->type == APPEND)
+		append_redir(list->file, error, &(fds->fd_out));
+	else
+		herdoc_redir(list->herdoc_file, error, &(fds->fd_in));
 }
