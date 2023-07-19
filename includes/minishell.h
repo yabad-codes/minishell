@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:02:21 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/12 17:50:14 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/19 11:30:18 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@
 # include <stdio.h>
 # include <signal.h>
 # include <unistd.h>
+# include <string.h>
 # include <fcntl.h>
+# include <errno.h>
+# include <stdbool.h>
 # include "../Libft/libft.h"
 # include "lexer.h"
 # include "parser.h"
@@ -31,8 +34,8 @@
 t_token	*lexer(char *input);
 t_ast	*parser(t_token *tokens);
 
-void    free_tokens_and_exit(t_token *token_head);
-void    free_ast_and_exit(t_ast *ast);
+void	free_tokens_and_exit(t_token *token_head);
+void	free_ast_and_exit(t_ast *ast);
 
 /*	PRINT PROTOTYPE	*/
 void	print_ast(t_ast *ast);

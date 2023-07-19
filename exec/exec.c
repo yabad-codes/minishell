@@ -3,28 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:56:43 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/13 18:11:56 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/19 10:23:29 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+/* This is Anouar updated version */
 void	execute_cmd(t_cmd *cmd)
 {
-	int		id;
+	int				id;
+	t_builtin_type	builtin;
+	t_redir_error	is_redir_error;
 
 	id = fork();
 	if (id == 0)
 	{
-		execv(get_path(cmd->cmd_args[0]), cmd->cmd_args);
-		perror("execv failed\n");
-		exit(EXIT_FAILURE);
+		handling_redirections(cmd->redir, &is_redir_error);
+		if (cmd->cmd_args && is_redir_error.is_error == false)
+		{
+			builtin = is_builtin(cmd->cmd_args[0]);
+			if (builtin)
+			{
+				execute_builtin(cmd, builtin);
+				exit(EXIT_SUCCESS);
+			}
+			execv(get_path(cmd->cmd_args[0]), cmd->cmd_args);
+			if (!ft_strncmp(strerror(errno), "Bad address", 11))
+				error_file_message(cmd->cmd_args[0], "command not found");
+			exit(EXIT_FAILURE);
+		}
+		exit(EXIT_SUCCESS);
 	}
-	waitpid(id, 0, 0);
+	else if (id > 0)
+		waitpid(id, 0, 0);
+	else
+		exit(EXIT_FAILURE);
 }
+
+/* This is Yahya version */
+// void	execute_cmd(t_cmd *cmd)
+// {
+// 	int				id;
+// 	t_builtin_type	builtin;
+
+// 	builtin = is_builtin(cmd->cmd_args[0]);
+// 	if (builtin)
+// 	{
+// 		execute_builtin(cmd, builtin);
+// 		return ;
+// 	}
+// 	id = fork();
+// 	if (id == 0)
+// 	{
+// 		execv(get_path(cmd->cmd_args[0]), cmd->cmd_args);
+// 		perror("execv failed\n");
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	else
+// 		waitpid(id, 0, 0);
+// }
 
 void	execute_left(t_ast *ast, t_ast *head, int *fd)
 {
@@ -32,8 +73,7 @@ void	execute_left(t_ast *ast, t_ast *head, int *fd)
 	dup2(fd[1], STDOUT_FILENO);
 	execute(ast->left, head);
 	close(fd[1]);
-	printf("HERE LEFT\n");
-	exit(1);
+	exit(EXIT_SUCCESS);
 }
 
 void	execute_right(t_ast *ast, t_ast *head, int *fd)
@@ -42,8 +82,7 @@ void	execute_right(t_ast *ast, t_ast *head, int *fd)
 	dup2(fd[0], STDIN_FILENO);
 	execute(ast->right, head);
 	close(fd[0]);
-	printf("HERE RIGHT\n");
-	exit(1);
+	exit(EXIT_SUCCESS);
 }
 
 void	execute(t_ast *ast, t_ast *head)

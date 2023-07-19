@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/12 19:04:04 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/18 20:15:41 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,17 @@ void	conductor(char *input)
 {
 	t_token	*tokens;
 	t_ast	*ast;
+	int		num;
 
 	ast = NULL;
 	tokens = lexer(input);
+	num = 0;
 	if (check_syntax_error(tokens))
 	{
 		ast = parser(tokens);
 		if (!ast)
 			return ;
+		handling_herdocs(ast, &num);
 		execute(ast, ast);
 	}
 	return ;
