@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:56:43 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/20 12:51:48 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/20 13:18:24 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,18 @@ void	execute_cmd(t_cmd *cmd, t_env **env)
 	t_builtin_type	builtin;
 	t_redir_error	is_redir_error;
 
+	handling_redirections(cmd->redir, &is_redir_error);
+	builtin = is_builtin(cmd->cmd_args[0]);
+	if (builtin)
+	{
+		execute_builtin(cmd, builtin, env);
+		return ;
+	}
 	id = fork();
 	if (id == 0)
 	{
-		handling_redirections(cmd->redir, &is_redir_error);
 		if (cmd->cmd_args && is_redir_error.is_error == false)
 		{
-			builtin = is_builtin(cmd->cmd_args[0]);
-			if (builtin)
-			{
-				execute_builtin(cmd, builtin, env);
-				exit(EXIT_SUCCESS);
-			}
 			execv(get_path(cmd->cmd_args[0]), cmd->cmd_args);
 			if (!ft_strncmp(strerror(errno), "Bad address", 11))
 				error_file_message(cmd->cmd_args[0], "command not found");
@@ -42,29 +42,6 @@ void	execute_cmd(t_cmd *cmd, t_env **env)
 	else
 		exit(EXIT_FAILURE);
 }
-
-/* This is Yahya version */
-// void	execute_cmd(t_cmd *cmd)
-// {
-// 	int				id;
-// 	t_builtin_type	builtin;
-
-// 	builtin = is_builtin(cmd->cmd_args[0]);
-// 	if (builtin)
-// 	{
-// 		execute_builtin(cmd, builtin);
-// 		return ;
-// 	}
-// 	id = fork();
-// 	if (id == 0)
-// 	{
-// 		execv(get_path(cmd->cmd_args[0]), cmd->cmd_args);
-// 		perror("execv failed\n");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	else
-// 		waitpid(id, 0, 0);
-// }
 
 void	execute_left(t_ast *ast, t_ast *head, int *fd, t_env **env)
 {
