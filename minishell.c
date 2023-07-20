@@ -6,13 +6,13 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/12 19:04:04 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/14 18:57:29 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-void	conductor(char *input)
+void	conductor(char *input, t_env **env)
 {
 	t_token	*tokens;
 	t_ast	*ast;
@@ -24,7 +24,7 @@ void	conductor(char *input)
 		ast = parser(tokens);
 		if (!ast)
 			return ;
-		execute(ast, ast);
+		execute(ast, ast, env);
 	}
 	return ;
 }
@@ -46,12 +46,14 @@ static char	*custom_prompt(char *user)
 	return (prompt);
 }
 
-int	main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **envp)
 {
 	char	*input;
 	char	*prompt;
+	t_env	*env;
 
-	(void)ac, (void)av, (void)env;
+	(void)ac, (void)av;
+	env = get_env(envp);
 	prompt = custom_prompt(getenv("USER"));
 	while (TRUE)
 	{
@@ -61,7 +63,7 @@ int	main(int ac, char **av, char **env)
 		if (ft_strncmp(input, "\n", ft_strlen(input)))
 		{
 			add_history(input);
-			conductor(input);
+			conductor(input, &env);
 		}
 		free(input);
 	}

@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:02:21 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/14 09:55:20 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/16 09:37:50 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdbool.h>
+# include <sys/param.h>
 # include "../Libft/libft.h"
 # include "lexer.h"
 # include "parser.h"
@@ -32,8 +33,14 @@
 t_token	*lexer(char *input);
 t_ast	*parser(t_token *tokens);
 
-void    free_tokens_and_exit(t_token *token_head);
-void    free_ast_and_exit(t_ast *ast);
+void	free_tokens_and_exit(t_token *token_head);
+void	free_ast_and_exit(t_ast *ast);
+t_env	*get_env(char **envp);
+char	*get_value(t_env *env, char *key);
+void	modify_key(t_env *env, char *key, char *value);
+void	del_key(t_env *env, void (*del)(void *));
+void	add_key(t_env **env, t_env *new);
+t_env	*new_key(char *key, char *value);
 
 /*	PRINT PROTOTYPE	*/
 void	print_ast(t_ast *ast);
