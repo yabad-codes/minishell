@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 10:43:58 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/16 11:05:00 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/18 20:15:52 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTOR_H
 # define EXECUTOR_H
+
 # include "parser.h"
 
 typedef enum e_builtin_type
@@ -32,6 +33,19 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;
 }	t_env;
+
+typedef struct s_redir_error
+{
+	char	*filename;
+	char	*error_message;
+	bool	is_error;
+}	t_redir_error;
+
+typedef struct s_fds
+{
+	int	fd_out;
+	int	fd_in;
+}	t_fds;
 
 /**
  * @brief The starting point of execution
@@ -55,4 +69,18 @@ void			ft_export(t_cmd *cmd);
 void			ft_unset(t_cmd *cmd, t_env **env);
 void			ft_env(t_cmd *cmd, t_env *env);
 void			ft_exit(t_cmd *cmd);
+
+/**
+ * Redirections
+*/
+void	handling_redirections(t_redir *list, t_redir_error *error);
+void	out_redir(char *filename, t_redir_error *error, int *fd_out);
+void	append_redir(char *filename, t_redir_error *error, int *fd_out);
+void	in_redir(char *filename, t_redir_error *error, int *fd_in);
+void	herdoc_redir(char *file, \
+t_redir_error *error, int *fd_in);
+void	error_file_message(char *filename, char *error_message);
+void	handling_herdocs(t_ast *ast, int *num);
+void	launch_redirections(t_redir *list, t_redir_error *error, t_fds *fds);
+
 #endif
