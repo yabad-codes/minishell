@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 19:41:12 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/20 10:34:37 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/20 11:09:24 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,8 @@
 
 void	ft_pwd(void)
 {
-	printf("execute pwd\n");
+	char	cwd[PATH_MAX];
+
+	getcwd(cwd, PATH_MAX);
+	printf("%s\n", cwd);
 }
