@@ -23,9 +23,16 @@ SRC = 	minishell.c \
 		exec/redirection_cases.c \
 		exec/error.c \
 		exec/get_path.c \
-		exec/builtins.c \
-		exec/builtins_plus.c \
-		exec/builtins_call.c
+		exec/builtins/builtins_call.c \
+		exec/builtins/echo.c \
+		exec/builtins/pwd.c \
+		exec/builtins/cd.c \
+		exec/builtins/env.c \
+		exec/builtins/exit.c \
+		exec/builtins/export.c \
+		exec/builtins/unset.c \
+		env/env.c \
+		env/env_utils.c
 
 
 HEADER = $(INCLUDES)/minishell.h

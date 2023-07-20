@@ -23,6 +23,7 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <stdbool.h>
+# include <sys/param.h>
 # include "../Libft/libft.h"
 # include "lexer.h"
 # include "parser.h"
@@ -36,6 +37,13 @@ t_ast	*parser(t_token *tokens);
 
 void	free_tokens_and_exit(t_token *token_head);
 void	free_ast_and_exit(t_ast *ast);
+
+t_env	*get_env(char **envp);
+char	*get_value(t_env *env, char *key);
+void	modify_key(t_env *env, char *key, char *value);
+void	del_key(t_env *env, void (*del)(void *));
+void	add_key(t_env **env, t_env *new);
+t_env	*new_key(char *key, char *value);
 
 /*	PRINT PROTOTYPE	*/
 void	print_ast(t_ast *ast);

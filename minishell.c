@@ -12,7 +12,7 @@
 
 #include "includes/minishell.h"
 
-void	conductor(char *input)
+void	conductor(char *input, t_env **env)
 {
 	t_token	*tokens;
 	t_ast	*ast;
@@ -27,7 +27,7 @@ void	conductor(char *input)
 		if (!ast)
 			return ;
 		handling_herdocs(ast, &num);
-		execute(ast, ast);
+		execute(ast, ast, env);
 	}
 	return ;
 }
@@ -49,12 +49,14 @@ static char	*custom_prompt(char *user)
 	return (prompt);
 }
 
-int	main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **envp)
 {
 	char	*input;
 	char	*prompt;
+	t_env	*env;
 
-	(void)ac, (void)av, (void)env;
+	(void)ac, (void)av;
+	env = get_env(envp);
 	prompt = custom_prompt(getenv("USER"));
 	while (TRUE)
 	{
@@ -64,7 +66,7 @@ int	main(int ac, char **av, char **env)
 		if (ft_strncmp(input, "\n", ft_strlen(input)))
 		{
 			add_history(input);
-			conductor(input);
+			conductor(input, &env);
 		}
 		free(input);
 	}
