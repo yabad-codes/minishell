@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:51:23 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/13 12:29:21 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:14:22 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*get_env_val(t_token *token_head, char *str)
 
 	env_len = 0;
 	while ((str[env_len] >= 'A' && str[env_len] <= 'Z') \
-	|| (str[env_len] >= 'a' && str[env_len] <= 'z'))
+	|| (str[env_len] >= 'a' && str[env_len] <= 'z') || str[env_len] == '_')
 		env_len++;
 	locate_env = ft_substr(str, 0, env_len);
 	if (!locate_env)
@@ -58,7 +58,7 @@ static int	detect_env_and_join(t_token *token_head, char *token_val, \
 		temp = *val;
 		token_val++;
 		while ((*token_val >= 'A' && *token_val <= 'Z') \
-		|| (*token_val >= 'a' && *token_val <= 'z'))
+		|| (*token_val >= 'a' && *token_val <= 'z') || *token_val == '_')
 		{
 			(*token_pos)++;
 			token_val++;

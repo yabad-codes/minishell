@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:02:19 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/04 11:24:57 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/19 16:33:00 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	is_delim(char c1, char c2, t_state toggle)
 		return (FALSE);
 }
 
-int	is_expandable(char *token)
+int	is_expandable(int prev_delim, char *token)
 {
 	int	contain_dollar;
 
@@ -83,5 +83,5 @@ int	is_expandable(char *token)
 			contain_dollar = TRUE;
 		token++;
 	}
-	return (contain_dollar && (*(token - 1) != '\''));
+	return (contain_dollar && (*(token - 1) != '\'') && prev_delim != HRDOC);
 }

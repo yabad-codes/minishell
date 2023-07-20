@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_err_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 08:58:22 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/04 11:25:34 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/19 13:02:35 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,14 @@ int	is_word_type_before(t_token *prev_token)
 {
 	if (prev_token == NULL)
 		return (FALSE);
-
 	return (prev_token->type == WORD);
+}
+
+int	valid_syntax_after(t_token *token)
+{
+	if (token->next && token->next->type != PIPE)
+		return (TRUE);
+	return (FALSE);
 }
 
 int	is_word_type_after(t_token *token)
