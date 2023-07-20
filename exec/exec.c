@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:56:43 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/20 12:36:20 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/20 12:51:48 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	execute_cmd(t_cmd *cmd, t_env **env)
 // 		waitpid(id, 0, 0);
 // }
 
-void	execute_left(t_ast *ast, t_ast *head, int *fd)
+void	execute_left(t_ast *ast, t_ast *head, int *fd, t_env **env)
 {
 	close(fd[0]);
 	dup2(fd[1], STDOUT_FILENO);
