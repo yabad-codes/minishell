@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 10:43:58 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/18 20:15:52 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/21 10:10:10 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void			ft_export(t_cmd *cmd);
 void			ft_unset(t_cmd *cmd, t_env **env);
 void			ft_env(t_cmd *cmd, t_env *env);
 void			ft_exit(t_cmd *cmd);
+int				ft_max(int a, int b);
 
 /**
  * Redirections
