@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 09:44:54 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/20 11:34:08 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/21 12:46:13 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,6 @@ static bool	is_digit(char *str)
 	return (true);
 }
 
-static void	print_error(char *arg, char *msg)
-{
-	ft_putstr_fd("exit\n", 2);
-	ft_putstr_fd("bash: exit: ", 2);
-	if (arg)
-		ft_putstr_fd(arg, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(msg, 2);
-}
-
 static int	get_args_num(t_cmd *cmd)
 {
 	int	i;
@@ -47,12 +37,13 @@ void	ft_exit(t_cmd *cmd)
 {
 	if (cmd->cmd_args[1] && !is_digit(cmd->cmd_args[1]))
 	{
-		print_error(cmd->cmd_args[1], "numeric argument required\n");
+		ft_putstr_fd("exit\n", 2);
+		print_error("exit", cmd->cmd_args[1], "numeric argument required");
 		exit(255);
 	}
 	if (get_args_num(cmd) > 1)
 	{
-		print_error(NULL, "too many arguments\n");
+		error_file_message("exit", "too many arguments");
 		return ;
 	}
 	if (get_args_num(cmd) == 0)

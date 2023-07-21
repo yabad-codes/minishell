@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 13:18:54 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/15 18:20:15 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/21 16:36:33 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,28 @@ char	*get_value(t_env *env, char *key)
 	return (NULL);
 }
 
-void	modify_key(t_env *env, char *key, char *value)
+void	modify_key(t_env **env, char *key, char *value)
 {
-	while (env)
+	t_env	*tmp;
+	t_env	*new;
+
+	tmp = *env;
+	while (tmp)
 	{
-		if (!ft_strncmp(env->key, key, ft_strlen(key)))
+		if (!ft_strncmp(tmp->key, key, \
+			ft_max(ft_strlen(key), ft_strlen(tmp->key))))
 		{
-			free(env->value);
-			env->value = value;
+			free(tmp->value);
+			tmp->value = value;
 			return ;
 		}
-		env = env->next;
+		tmp = tmp->next;
 	}
-	add_key(&env, new_key(key, value));
+	new = new_key(key, value);
+	if (!new)
+		return ;
+	new->next = *env;
+	*env = new;
 }
 
 void	del_key(t_env *env, void (*del)(void *))

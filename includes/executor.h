@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 10:43:58 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/21 10:10:10 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/21 12:30:48 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,12 @@ void			del_key(t_env *env, void (*del)(void *));
 void			ft_echo(t_cmd *cmd);
 void			ft_cd(t_cmd *cmd, t_env **env);
 void			ft_pwd(void);
-void			ft_export(t_cmd *cmd);
+void			ft_export(t_cmd *cmd, t_env **env);
 void			ft_unset(t_cmd *cmd, t_env **env);
 void			ft_env(t_cmd *cmd, t_env *env);
 void			ft_exit(t_cmd *cmd);
 int				ft_max(int a, int b);
+bool			is_valid_identifier(char *var);
 
 /**
  * Redirections
@@ -81,6 +82,7 @@ void	in_redir(char *filename, t_redir_error *error, int *fd_in);
 void	herdoc_redir(char *file, \
 t_redir_error *error, int *fd_in);
 void	error_file_message(char *filename, char *error_message);
+void	print_error(char *cmd, char *filename, char *error_message);
 void	handling_herdocs(t_ast *ast, int *num);
 void	launch_redirections(t_redir *list, t_redir_error *error, t_fds *fds);
 
