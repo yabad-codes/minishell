@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 09:45:41 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/21 16:30:40 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/22 11:25:35 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@ char	*extract_value(char *cmd, int *pos)
 	return (ft_substr(cmd, *pos + 1, ft_strlen(cmd) - *pos));
 }
 
+void	print_declare_vars(t_env *env)
+{
+	while (env)
+	{
+		printf("declare -x ");
+		printf("%s=%s\n", env->key, env->value);
+		env = env->next;
+	}
+}
+
 void	ft_export(t_cmd *cmd, t_env **env)
 {
 	char	*key;
@@ -40,12 +50,13 @@ void	ft_export(t_cmd *cmd, t_env **env)
 	i = 1;
 	if (!cmd || !cmd->cmd_args || !env)
 		return ;
+	if (!cmd->cmd_args[1])
+		print_declare_vars(*env);
 	while (cmd->cmd_args[i])
 	{
 		if (!is_valid_identifier(cmd->cmd_args[i]))
 		{
-			print_error("export", \
-				cmd->cmd_args[i], "not a valid identifier");
+			print_error("export", cmd->cmd_args[i], "not a valid identifier");
 			i++;
 			continue ;
 		}
