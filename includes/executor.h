@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 10:43:58 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/18 20:15:52 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/23 20:55:04 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_fds
  * @brief The starting point of execution
  * @param ast Our tree
 */
-void			execute(t_ast *ast, t_ast *head, t_env **env);
+int				execute(t_ast *ast, t_ast *head, t_env **env);
 char			*get_path(char *cmd);
 t_builtin_type	is_builtin(char *cmd);
 void			execute_builtin(t_cmd *cmd, t_builtin_type kind, t_env **env);
@@ -64,7 +64,7 @@ void			del_key(t_env *env, void (*del)(void *));
 */
 void			ft_echo(t_cmd *cmd);
 void			ft_cd(t_cmd *cmd, t_env **env);
-void			ft_pwd(void);
+void			ft_pwd(t_cmd *cmd);
 void			ft_export(t_cmd *cmd);
 void			ft_unset(t_cmd *cmd, t_env **env);
 void			ft_env(t_cmd *cmd, t_env *env);

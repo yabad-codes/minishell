@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:21:10 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/19 12:48:16 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/24 10:10:26 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ char	*expand_var(t_token *token_head, t_expand is_expand, char *token_val);
  * @param token_value the value of the token to process
  * @return the value without quotes
 */
-char	*remove_quotes(t_token *token_head, char *token_value);
+char	*remove_quotes(t_token *token_head, char *token_value, \
+						t_token *token, t_token *prev_tok);
 
 /**
  * @brief Join character to a string

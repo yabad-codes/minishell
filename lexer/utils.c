@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:02:19 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/19 16:33:00 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/22 12:56:22 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,7 @@ int	is_delim(char c1, char c2, t_state toggle)
 		return (FALSE);
 }
 
-int	is_expandable(int prev_delim, char *token)
+int	is_expandable(bool is_expandable, int prev_delim, char *token)
 {
-	int	contain_dollar;
-
-	contain_dollar = FALSE;
-	while (*token)
-	{
-		if (*token == '$')
-			contain_dollar = TRUE;
-		token++;
-	}
-	return (contain_dollar && (*(token - 1) != '\'') && prev_delim != HRDOC);
+	return (is_expandable && prev_delim != HRDOC);
 }

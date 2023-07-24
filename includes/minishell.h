@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:02:21 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/19 11:30:18 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:44:37 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 
 # define ANSI_COLOR_SKY_BLUE   "\033[1;36m"
 # define ANSI_COLOR_RESET      "\x1b[0m"
+
+int     g_exit_status;
 
 t_token	*lexer(char *input);
 t_ast	*parser(t_token *tokens);
