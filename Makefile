@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = #-fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 NAME = minishell
 INCLUDES = ./includes
 

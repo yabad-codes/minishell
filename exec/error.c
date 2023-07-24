@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 13:15:01 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/23 10:58:32 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/24 12:54:21 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	exec_error(char *msg, t_cmd *cmd)
 	if (!ft_strncmp(strerror(errno), "Bad address", 11))
 	{
 		error_file_message(cmd->cmd_args[0], "command not found");
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
 	error_file_message(cmd->cmd_args[0], msg);
-	exit(EXIT_FAILURE);
+	exit(127);
 }

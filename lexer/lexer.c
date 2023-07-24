@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:51:29 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/22 12:55:21 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/24 12:39:51 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	run_scenarios(t_vars *vars, char c)
 		if (token_exist(vars->token))
 		{
 			add_token(&vars->tokens, new_token(vars->token, WORD, \
-			is_expandable(vars->is_expandable, vars->prev_delim, vars->token)));
+			is_expandable(vars->is_expandable, vars->prev_delim)));
 			vars->token = ft_strdup("");
 			vars->is_expandable = false;
 		}
@@ -81,7 +81,7 @@ t_token	*get_tokens(char *input)
 	}
 	if (token_exist(vars.token))
 		add_token(&vars.tokens, new_token(vars.token, WORD, \
-			is_expandable(vars.is_expandable, vars.prev_delim, vars.token)));
+			is_expandable(vars.is_expandable, vars.prev_delim)));
 	return (vars.tokens);
 }
 

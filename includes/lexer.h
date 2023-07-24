@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:51:37 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/24 10:08:01 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/24 12:39:26 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	toggle_quote(char c, t_state *toggle);
  * @param state token state, inside quotes or not
  * @return TRUE expandable, otherwise FALSE
 */
-int		is_expandable(bool is_expandable, int prev_delim, char *token);
+int		is_expandable(bool is_expandable, int prev_delim);
 
 /**
  * @brief Check if the quotes is matched and closed

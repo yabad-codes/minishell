@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 19:41:12 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/21 11:20:50 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/24 12:37:55 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_pwd(t_cmd *cmd)
+void	ft_pwd(void)
 {
 	char	cwd[PATH_MAX];
 

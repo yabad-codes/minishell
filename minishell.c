@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/24 11:48:15 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/24 12:34:48 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	conductor(char *input, t_env **env)
 	t_token	*tokens;
 	t_ast	*ast;
 	int		num;
-	int		status;
 
 	ast = NULL;
 	tokens = lexer(input);

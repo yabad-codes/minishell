@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_call.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:55:18 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/21 12:05:07 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/24 12:37:36 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	execute_builtin(t_cmd *cmd, t_builtin_type kind, t_env **env)
 	else if (kind == CD)
 		ft_cd(cmd, env);
 	else if (kind == PWD)
-		ft_pwd(cmd);
+		ft_pwd();
 	else if (kind == EXPORT)
 		ft_export(cmd, env);
 	else if (kind == UNSET)

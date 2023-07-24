@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:56:43 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/23 13:45:29 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/24 12:43:44 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	cmd_run(t_cmd *cmd, t_env **env, t_redir_error *error)
 {
 	t_builtin_type	builtin;
 
-	handling_redirections(cmd->redir, &is_redir_error);
+	handling_redirections(cmd->redir, error);
 	if (cmd->cmd_args)
 	{
 		builtin = is_builtin(cmd->cmd_args[0]);
@@ -25,7 +25,7 @@ void	cmd_run(t_cmd *cmd, t_env **env, t_redir_error *error)
 			execute_builtin(cmd, builtin, env);
 			exit(EXIT_SUCCESS);
 		}
-		execv(get_path(cmd->cmd_args[0]), cmd->cmd_args);
+		execv(get_path(cmd->cmd_args[0], *env), cmd->cmd_args);
 		exec_error(strerror(errno), cmd);
 	}
 	exit(EXIT_SUCCESS);
@@ -52,6 +52,7 @@ int	execute_cmd(t_cmd *cmd, t_env **env)
 	}
 	else
 		exit(EXIT_FAILURE);
+	return (-1);
 }
 
 void	execute_left(t_ast *ast, t_ast *head, int *fd, t_env **env)
@@ -85,12 +86,12 @@ int	close_fds_and_wait_for_childs(int *fd, \
 	waitpid(rchild_pid, &status, 0);
 	if (((*(int *)&(status)) & 0177) == 0)
 		return (((*(int *)&(status)) >> 8) & 0x000000ff);
+	return (-1);
 }
 
 int		execute(t_ast *ast, t_ast *head, t_env **env)
 {
 	int		fd[2];
-	int		status;
 	pid_t	lchild_pid;
 	pid_t	rchild_pid;
 
@@ -113,5 +114,6 @@ int		execute(t_ast *ast, t_ast *head, t_env **env)
 			execute_right(ast, head, fd, env);
 		return (close_fds_and_wait_for_childs(fd, lchild_pid, rchild_pid));
 	}
+	return (-1);
 }
 	
