@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:02:21 by yabad             #+#    #+#             */
 /*   Updated: 2023/07/24 11:44:37 by ael-maar         ###   ########.fr       */
@@ -42,7 +42,7 @@ void	free_ast_and_exit(t_ast *ast);
 
 t_env	*get_env(char **envp);
 char	*get_value(t_env *env, char *key);
-void	modify_key(t_env *env, char *key, char *value);
+void	modify_key(t_env **env, char *key, char *value);
 void	del_key(t_env *env, void (*del)(void *));
 void	add_key(t_env **env, t_env *new);
 t_env	*new_key(char *key, char *value);

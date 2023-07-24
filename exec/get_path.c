@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 10:14:42 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/14 08:59:13 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/23 09:53:03 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,15 @@ char	*get_correct_path(char **path_env, char *cmd)
 	return (NULL);
 }
 
-char	*get_path(char *cmd)
+char	*get_path(char *cmd, t_env *env)
 {
 	char	**path_env;
 	char	*correct_path;
 	char	*path_var;
 
-	path_var = getenv("PATH");
+	if (ft_strchr(cmd, '/'))
+		return (cmd);
+	path_var = get_value(env, "PATH");
 	if (!path_var)
 		return (NULL);
 	path_env = ft_split(path_var, ':');

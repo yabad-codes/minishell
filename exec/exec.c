@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:56:43 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/24 09:41:44 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/23 13:45:29 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@ void	cmd_run(t_cmd *cmd, t_env **env, t_redir_error *error)
 {
 	t_builtin_type	builtin;
 
-	if (cmd->cmd_args && error->is_error == false)
+	handling_redirections(cmd->redir, &is_redir_error);
+	if (cmd->cmd_args)
 	{
-		if (cmd->cmd_args && !ft_strncmp(cmd->cmd_args[0], "exit", \
-		ft_strlen(cmd->cmd_args[0])))
-			ft_exit(cmd);
 		builtin = is_builtin(cmd->cmd_args[0]);
 		if (builtin)
 		{
@@ -28,9 +26,7 @@ void	cmd_run(t_cmd *cmd, t_env **env, t_redir_error *error)
 			exit(EXIT_SUCCESS);
 		}
 		execv(get_path(cmd->cmd_args[0]), cmd->cmd_args);
-		if (!ft_strncmp(strerror(errno), "Bad address", 11))
-			error_file_message(cmd->cmd_args[0], "command not found");
-		exit(127);
+		exec_error(strerror(errno), cmd);
 	}
 	exit(EXIT_SUCCESS);
 }

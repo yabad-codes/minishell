@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_err.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 09:46:08 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/19 13:02:05 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/24 12:21:26 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,6 @@ typedef enum e_separator
 	REDIR_SEP
 }	t_separator;
 
-//1- unclosed quote --> echo "hello --> syntax error: unclosed quotes
-//2- no left command before pipe --> |
-// ls --> syntax error near unexpected token `|'
-//3- no right command after pipe --> 
-// ls | --> syntax error near unexpected token `newline'
-//4- no right file after redirection --> 
-// ls > --> syntax error near unexpected token `newline'
-
 static t_separator	detect_sep(t_token	*token)
 {
 	if (ft_strchr(token->token, '"') || ft_strchr(token->token, '\''))
@@ -58,11 +50,11 @@ static void	error_message(t_error_code error)
 	if (error == NO_ERROR)
 		return ;
 	if (error == UNCLOSED_QUOTES)
-		printf("syntax error: unclosed quotes\n");
+		error_file_message(NULL, "syntax error: unclosed quotes");
 	else if (error == NO_LEFT_CMD_BEFORE_PIPE)
-		printf("syntax error near unexpected token `|'\n");
+		error_file_message(NULL, "syntax error near unexpected token");
 	else
-		printf("syntax error near unexpected token `newline'\n");
+		error_file_message(NULL, "syntax error near unexpected token");
 }
 
 static t_error_code	get_error_code(t_token *tokens)
