@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:56:43 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/20 13:18:24 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/23 13:45:29 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,22 @@ void	execute_cmd(t_cmd *cmd, t_env **env)
 	t_redir_error	is_redir_error;
 
 	handling_redirections(cmd->redir, &is_redir_error);
-	builtin = is_builtin(cmd->cmd_args[0]);
-	if (builtin)
+	if (cmd->cmd_args)
 	{
-		execute_builtin(cmd, builtin, env);
-		return ;
+		builtin = is_builtin(cmd->cmd_args[0]);
+		if (builtin)
+		{
+			execute_builtin(cmd, builtin, env);
+			return ;
+		}
 	}
 	id = fork();
 	if (id == 0)
 	{
 		if (cmd->cmd_args && is_redir_error.is_error == false)
 		{
-			execv(get_path(cmd->cmd_args[0]), cmd->cmd_args);
-			if (!ft_strncmp(strerror(errno), "Bad address", 11))
-				error_file_message(cmd->cmd_args[0], "command not found");
-			exit(EXIT_FAILURE);
+			execv(get_path(cmd->cmd_args[0], *env), cmd->cmd_args);
+			exec_error(strerror(errno), cmd);
 		}
 		exit(EXIT_SUCCESS);
 	}

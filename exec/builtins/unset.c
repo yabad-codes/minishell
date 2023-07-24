@@ -6,13 +6,13 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 09:46:25 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/21 10:38:06 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/21 12:31:07 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool	is_valid_identifier(char *var)
+bool	is_valid_identifier(char *var)
 {
 	if (ft_isalpha(var[0]) || var[0] == '_')
 		return (true);
@@ -45,13 +45,6 @@ static void	remove_env_elem(t_env **env, char *key)
 	}
 }
 
-static void	print_error(char *arg)
-{
-	ft_putstr_fd("bash: unset: `", 2);
-	ft_putstr_fd(arg, 2);
-	ft_putstr_fd("': not a valid identifier\n", 2);
-}
-
 void	ft_unset(t_cmd *cmd, t_env **env)
 {
 	int	i;
@@ -63,7 +56,8 @@ void	ft_unset(t_cmd *cmd, t_env **env)
 	{
 		if (!is_valid_identifier(cmd->cmd_args[i]))
 		{
-			print_error(cmd->cmd_args[i]);
+			print_error("unset", \
+				cmd->cmd_args[i], "not a valid identifier");
 			i++;
 			continue ;
 		}

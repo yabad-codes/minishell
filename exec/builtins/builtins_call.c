@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:55:18 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/21 11:54:12 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/23 15:49:56 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ void	execute_builtin(t_cmd *cmd, t_builtin_type kind, t_env **env)
 		ft_export(cmd, env);
 	else if (kind == UNSET)
 		ft_unset(cmd, env);
-	else
+	else if (kind == ENV)
 		ft_env(cmd, *env);
+	else
+		ft_exit(cmd);
 }
 
 t_builtin_type	is_builtin(char *cmd)
@@ -52,5 +54,7 @@ t_builtin_type	is_builtin(char *cmd)
 		return (UNSET);
 	else if (!ft_strncmp(cmd, "env", ft_max(cmd_len, 3)))
 		return (ENV);
+	else if (!ft_strncmp(cmd, "exit", ft_max(cmd_len, 4)))
+		return (EXIT);
 	return (NOT_BUILTIN);
 }

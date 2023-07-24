@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 10:43:58 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/21 12:30:48 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/23 14:00:18 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_fds
  * @param ast Our tree
 */
 void			execute(t_ast *ast, t_ast *head, t_env **env);
-char			*get_path(char *cmd);
+char			*get_path(char *cmd, t_env *env);
 t_builtin_type	is_builtin(char *cmd);
 void			execute_builtin(t_cmd *cmd, t_builtin_type kind, t_env **env);
 t_env			*new_key(char *key, char *value);
@@ -85,5 +85,6 @@ void	error_file_message(char *filename, char *error_message);
 void	print_error(char *cmd, char *filename, char *error_message);
 void	handling_herdocs(t_ast *ast, int *num);
 void	launch_redirections(t_redir *list, t_redir_error *error, t_fds *fds);
+void	exec_error(char *msg, t_cmd *cmd);
 
 #endif
