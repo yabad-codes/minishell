@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/18 20:15:41 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:21:01 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	conductor(char *input, t_env **env)
 	t_token	*tokens;
 	t_ast	*ast;
 	int		num;
+	int		status;
 
 	ast = NULL;
 	tokens = lexer(input);
@@ -27,7 +28,7 @@ void	conductor(char *input, t_env **env)
 		if (!ast)
 			return ;
 		handling_herdocs(ast, &num);
-		execute(ast, ast, env);
+		exit_status = execute(ast, ast, env);
 	}
 	return ;
 }
@@ -58,6 +59,8 @@ int	main(int ac, char **av, char **envp)
 	(void)ac, (void)av;
 	env = get_env(envp);
 	prompt = custom_prompt(getenv("USER"));
+	int savestdout = dup(STDOUT_FILENO);
+	int	savestdin = dup(STDIN_FILENO);
 	while (TRUE)
 	{
 		input = readline(prompt);
@@ -67,6 +70,8 @@ int	main(int ac, char **av, char **envp)
 		{
 			add_history(input);
 			conductor(input, &env);
+			dup2(savestdin, STDIN_FILENO);
+			dup2(savestdout, STDOUT_FILENO);
 		}
 		free(input);
 	}

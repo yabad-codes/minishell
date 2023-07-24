@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:47:55 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/19 09:35:15 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/23 00:35:23 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	out_redir(char *filename, t_redir_error *error, int *fd_out)
 {
+	if (*fd_out != -1)
+		close(*fd_out);
 	if (error->is_error == false)
 	{
 		*fd_out = open(filename, O_CREAT | O_TRUNC | O_WRONLY, 0644);
@@ -29,6 +31,8 @@ void	out_redir(char *filename, t_redir_error *error, int *fd_out)
 
 void	append_redir(char *filename, t_redir_error *error, int *fd_out)
 {
+	if (*fd_out != -1)
+		close(*fd_out);
 	if (error->is_error == false)
 	{
 		*fd_out = open(filename, O_CREAT | O_WRONLY | O_APPEND, 0644);
@@ -44,6 +48,8 @@ void	append_redir(char *filename, t_redir_error *error, int *fd_out)
 
 void	in_redir(char *filename, t_redir_error *error, int *fd_in)
 {
+	if (*fd_in != -1)
+		close(*fd_in);
 	if (error->is_error == false)
 	{
 		*fd_in = open(filename, O_RDONLY, 0644);
@@ -60,6 +66,8 @@ void	in_redir(char *filename, t_redir_error *error, int *fd_in)
 void	herdoc_redir(char *file, \
 t_redir_error *error, int *fd_in)
 {
+	if (*fd_in != -1)
+		close(*fd_in);
 	*fd_in = open(file, O_CREAT | O_RDWR, 0644);
 	if (*fd_in == -1)
 	{

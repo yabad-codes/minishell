@@ -3,42 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:56:43 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/20 13:18:24 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/24 09:41:44 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	execute_cmd(t_cmd *cmd, t_env **env)
+void	cmd_run(t_cmd *cmd, t_env **env, t_redir_error *error)
+{
+	t_builtin_type	builtin;
+
+	if (cmd->cmd_args && error->is_error == false)
+	{
+		if (cmd->cmd_args && !ft_strncmp(cmd->cmd_args[0], "exit", \
+		ft_strlen(cmd->cmd_args[0])))
+			ft_exit(cmd);
+		builtin = is_builtin(cmd->cmd_args[0]);
+		if (builtin)
+		{
+			execute_builtin(cmd, builtin, env);
+			exit(EXIT_SUCCESS);
+		}
+		execv(get_path(cmd->cmd_args[0]), cmd->cmd_args);
+		if (!ft_strncmp(strerror(errno), "Bad address", 11))
+			error_file_message(cmd->cmd_args[0], "command not found");
+		exit(127);
+	}
+	exit(EXIT_SUCCESS);
+}
+
+int	execute_cmd(t_cmd *cmd, t_env **env)
 {
 	int				id;
-	t_builtin_type	builtin;
+	int				status;
 	t_redir_error	is_redir_error;
 
 	handling_redirections(cmd->redir, &is_redir_error);
-	builtin = is_builtin(cmd->cmd_args[0]);
-	if (builtin)
-	{
-		execute_builtin(cmd, builtin, env);
-		return ;
-	}
+	if (cmd->cmd_args && !ft_strncmp(cmd->cmd_args[0], "exit", \
+	ft_strlen(cmd->cmd_args[0])))
+		ft_exit(cmd);
 	id = fork();
 	if (id == 0)
-	{
-		if (cmd->cmd_args && is_redir_error.is_error == false)
-		{
-			execv(get_path(cmd->cmd_args[0]), cmd->cmd_args);
-			if (!ft_strncmp(strerror(errno), "Bad address", 11))
-				error_file_message(cmd->cmd_args[0], "command not found");
-			exit(EXIT_FAILURE);
-		}
-		exit(EXIT_SUCCESS);
-	}
+		cmd_run(cmd, env, &is_redir_error);
 	else if (id > 0)
-		waitpid(id, 0, 0);
+	{
+		waitpid(id, &status, 0);
+		if (((*(int *)&(status)) & 0177) == 0)
+			return (((*(int *)&(status)) >> 8) & 0x000000ff);
+	}
 	else
 		exit(EXIT_FAILURE);
 }
@@ -54,33 +69,39 @@ void	execute_left(t_ast *ast, t_ast *head, int *fd, t_env **env)
 
 void	execute_right(t_ast *ast, t_ast *head, int *fd, t_env **env)
 {
+	int	status;
+
 	close(fd[1]);
 	dup2(fd[0], STDIN_FILENO);
-	execute(ast->right, head, env);
+	status = execute(ast->right, head, env);
 	close(fd[0]);
-	exit(EXIT_SUCCESS);
+	exit(status);
 }
 
-void	close_fds_and_wait_for_childs(int *fd, \
+int	close_fds_and_wait_for_childs(int *fd, \
 		pid_t lchild_pid, pid_t rchild_pid)
 {
+	int	status;
+
 	close(fd[1]);
 	close(fd[0]);
 	waitpid(lchild_pid, 0, 0);
-	waitpid(rchild_pid, 0, 0);
+	waitpid(rchild_pid, &status, 0);
+	if (((*(int *)&(status)) & 0177) == 0)
+		return (((*(int *)&(status)) >> 8) & 0x000000ff);
 }
 
-void	execute(t_ast *ast, t_ast *head, t_env **env)
+int		execute(t_ast *ast, t_ast *head, t_env **env)
 {
 	int		fd[2];
+	int		status;
 	pid_t	lchild_pid;
 	pid_t	rchild_pid;
 
-	if (ast == NULL)
-		return ;
-	else if (ast->node->type == NODE_CMD)
-		execute_cmd(ast->node->cmd, env);
-	else if (ast->node->type == NODE_PIPE)
+
+	if (ast->node->type == NODE_CMD)
+		return (execute_cmd(ast->node->cmd, env));
+	if (ast->node->type == NODE_PIPE)
 	{
 		if (pipe(fd) == -1)
 			free_ast_and_exit(head);
@@ -94,6 +115,7 @@ void	execute(t_ast *ast, t_ast *head, t_env **env)
 			free_ast_and_exit(head);
 		if (rchild_pid == 0)
 			execute_right(ast, head, fd, env);
-		close_fds_and_wait_for_childs(fd, lchild_pid, rchild_pid);
+		return (close_fds_and_wait_for_childs(fd, lchild_pid, rchild_pid));
 	}
 }
+	
