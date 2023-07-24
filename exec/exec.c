@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:56:43 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/24 12:43:44 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/24 20:50:35 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ int	execute_cmd(t_cmd *cmd, t_env **env)
 		waitpid(id, &status, 0);
 		if (((*(int *)&(status)) & 0177) == 0)
 			return (((*(int *)&(status)) >> 8) & 0x000000ff);
+		if (((*(int *)&(status)) & 0177) != 0177 \
+		&& ((*(int *)&(status)) & 0177) != 0)
+			return (((*(int *)&(status)) & 0177));
 	}
 	else
 		exit(EXIT_FAILURE);
@@ -86,6 +89,9 @@ int	close_fds_and_wait_for_childs(int *fd, \
 	waitpid(rchild_pid, &status, 0);
 	if (((*(int *)&(status)) & 0177) == 0)
 		return (((*(int *)&(status)) >> 8) & 0x000000ff);
+	if (((*(int *)&(status)) & 0177) != 0177 \
+	&& ((*(int *)&(status)) & 0177) != 0)
+			return (((*(int *)&(status)) & 0177));
 	return (-1);
 }
 
