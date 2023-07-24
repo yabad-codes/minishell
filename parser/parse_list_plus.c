@@ -3,25 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   parse_list_plus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:40:11 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/04 11:20:02 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/24 14:26:24 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/parser.h"
 
-t_redir	*new_redir(t_token_type type, char *file)
+t_redir	*new_redir(t_token_type type, char *file, bool is_quotes)
 {
 	t_redir	*redir;
 
 	redir = (t_redir *)malloc(sizeof(t_redir));
 	if (!redir)
 		return (NULL);
-	redir->type = type; 
+	redir->type = type;
 	redir->file = file;
+	redir->hrd_quotes = is_quotes;
 	redir->next = NULL;
 	return (redir);
 }

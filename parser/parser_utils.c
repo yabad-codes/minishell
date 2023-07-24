@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 18:21:42 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/24 10:44:59 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/24 16:11:15 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ bool	quotes_checks(char token_c, t_quote_vars *vars, t_token *token, t_token *pr
 	return (false);
 }
 
-/* Updated version of remove quotes */
 char	*remove_quotes(t_token *token_head, char *token_value, \
 						t_token *token, t_token *prev_tok)
 {
@@ -79,44 +78,8 @@ char	*remove_quotes(t_token *token_head, char *token_value, \
 			token_value++;
 			continue;
 		}
-		if (quotes_checks(*token_value, &vars, token, prev_tok))
-		{
-			token_value++;
-			continue;
-		}
 		*vars.dst++ = *token_value++;
 	}
 	*vars.dst = '\0';
 	return (vars.val);
 }
-
-/* The old version of remove quotes */
-// char	*remove_quotes(t_token *token_head, char *token_value, \
-// 						t_token *token, t_token *prev_tok)
-// {
-// 	char	*val;
-// 	t_state	toggle;
-
-// 	val = ft_strdup("");
-// 	toggle = NONE;
-// 	if (!val)
-// 		free_tokens_and_exit(token_head);
-// 	while (*token_value)
-// 	{
-// 		if (*token_value == '\'' && toggle == NONE)
-// 			toggle = SINGLE;
-// 		else if (*token_value == '\"' && toggle == NONE)
-// 			toggle = DOUBLE;
-// 		else if ((*token_value == '\'' && toggle == SINGLE) || \
-// 			(*token_value == '\"' && toggle == DOUBLE))
-// 			toggle = NONE;
-// 		else
-// 		{
-// 			val = ft_charjoin(val, *token_value);
-// 			if (!val)
-// 				free_tokens_and_exit(token_head);
-// 		}
-// 		token_value++;
-// 	}
-// 	return (val);
-// }
