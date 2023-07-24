@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_call.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:55:18 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/16 11:04:38 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/21 12:05:07 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	execute_builtin(t_cmd *cmd, t_builtin_type kind, t_env **env)
 	else if (kind == CD)
 		ft_cd(cmd, env);
 	else if (kind == PWD)
-		ft_pwd();
+		ft_pwd(cmd);
 	else if (kind == EXPORT)
 		ft_export(cmd);
 	else if (kind == UNSET)
@@ -47,7 +47,5 @@ t_builtin_type	is_builtin(char *cmd)
 		return (UNSET);
 	else if (!ft_strncmp(cmd, "env", cmd_len))
 		return (ENV);
-	else if (!ft_strncmp(cmd, "exit", cmd_len))
-		return (EXIT);
 	return (NOT_BUILTIN);
 }

@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:13:03 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/19 09:56:06 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/23 00:39:46 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ void	handling_redirections(t_redir *list, t_redir_error *error)
 {
 	t_fds			fds;
 
-	fds.fd_in = 0;
-	fds.fd_out = 0;
+	fds.fd_in = -1;
+	fds.fd_out = -1;
 	error->is_error = false;
 	while (list)
 	{
@@ -96,10 +96,17 @@ void	handling_redirections(t_redir *list, t_redir_error *error)
 	}
 	if (error->is_error == false)
 	{
-		if (fds.fd_in)
+		if (fds.fd_in != -1)
+		{
+			printf("LLLOL\n");
 			dup2(fds.fd_in, STDIN_FILENO);
-		if (fds.fd_out)
+			close(fds.fd_in);
+		}
+		if (fds.fd_out != -1)
+		{
 			dup2(fds.fd_out, STDOUT_FILENO);
+			close(fds.fd_out);	
+		}
 		return ;
 	}
 	error_file_message(error->filename, error->error_message);

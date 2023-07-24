@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 18:09:52 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/12 20:09:49 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/24 10:09:38 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,18 @@ t_token	*expand(t_token *token_head)
 {
 	t_token	*new;
 	t_token	*tmp;
+	t_token	*prev_tok;
+	char	*rm_quotes;
 
 	new = NULL;
 	tmp = token_head;
+	prev_tok = NULL;
 	while (token_head)
 	{
+		rm_quotes = remove_quotes(tmp, token_head->token, token_head, prev_tok);
 		add_token(&new, new_token(expand_var(tmp, token_head->expand, \
-				remove_quotes(tmp, token_head->token)), token_head->type, FALSE));
+				rm_quotes), token_head->type, FALSE));
+		prev_tok = token_head;
 		token_head = token_head->next;
 	}
 	clear_tokens(token_head);

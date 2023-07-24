@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 19:36:29 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/17 10:40:22 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/21 11:17:02 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_echo(t_cmd *cmd)
 	}
 }
 
-void	ft_cd(t_cmd *cmd)
+void	ft_cd(t_cmd *cmd, t_env **env)
 {
 	printf("execute cd\n");
 }
@@ -53,7 +53,7 @@ void	ft_export(t_cmd *cmd)
 	printf("execute export\n");
 }
 
-void	ft_unset(t_cmd *cmd)
+void	ft_unset(t_cmd *cmd, t_env **env)
 {
 	printf("execute unset\n");
 }

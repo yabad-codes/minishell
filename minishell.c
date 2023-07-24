@@ -6,17 +6,27 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/18 20:15:41 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:48:15 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+
+typedef struct s_mini_vars
+{
+	char	*input;
+	char	*prompt;
+	t_env	*env;
+	int		savestdout;
+	int		savestdin;
+}	t_vars;
 
 void	conductor(char *input, t_env **env)
 {
 	t_token	*tokens;
 	t_ast	*ast;
 	int		num;
+	int		status;
 
 	ast = NULL;
 	tokens = lexer(input);
@@ -27,7 +37,7 @@ void	conductor(char *input, t_env **env)
 		if (!ast)
 			return ;
 		handling_herdocs(ast, &num);
-		execute(ast, ast, env);
+		g_exit_status = execute(ast, ast, env);
 	}
 	return ;
 }
@@ -51,24 +61,26 @@ static char	*custom_prompt(char *user)
 
 int	main(int ac, char **av, char **envp)
 {
-	char	*input;
-	char	*prompt;
-	t_env	*env;
+	t_vars	v;
 
 	(void)ac, (void)av;
-	env = get_env(envp);
-	prompt = custom_prompt(getenv("USER"));
+	v.env = get_env(envp);
+	v.prompt = custom_prompt(getenv("USER"));
+	v.savestdout = dup(STDOUT_FILENO);
+	v.savestdin = dup(STDIN_FILENO);
 	while (TRUE)
 	{
-		input = readline(prompt);
-		if (!input)
+		v.input = readline(v.prompt);
+		if (!v.input)
 			break ;
-		if (ft_strncmp(input, "\n", ft_strlen(input)))
+		if (ft_strncmp(v.input, "\n", ft_strlen(v.input)))
 		{
-			add_history(input);
-			conductor(input, &env);
+			add_history(v.input);
+			conductor(v.input, &v.env);
+			dup2(v.savestdin, STDIN_FILENO);
+			dup2(v.savestdout, STDOUT_FILENO);
 		}
-		free(input);
+		free(v.input);
 	}
 	return (0);
 }
