@@ -6,11 +6,18 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 09:42:32 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/22 13:03:43 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/25 11:39:48 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	edit_env_vars(t_env **env, char buf[])
+{
+	modify_key(env, "OLDPWD", ft_strdup(buf));
+	getcwd(buf, PATH_MAX);
+	modify_key(env, "PWD", ft_strdup(buf));
+}
 
 static int	cd_home(t_env **env)
 {
@@ -29,9 +36,7 @@ static int	cd_home(t_env **env)
 		perror("cd");
 		return (1);
 	}
-	modify_key(env, "OLDPWD", ft_strdup(buf));
-	getcwd(buf, PATH_MAX);
-	modify_key(env, "PWD", ft_strdup(buf));
+	edit_env_vars(env, buf);
 	return (0);
 }
 
@@ -52,36 +57,35 @@ static int	cd_old(t_env **env)
 		perror("cd");
 		return (1);
 	}
-	modify_key(env, "OLDPWD", ft_strdup(buf));
-	getcwd(buf, PATH_MAX);
-	modify_key(env, "OLDPWD", ft_strdup(buf));
+	edit_env_vars(env, buf);
 	return (0);
 }
 
 void	ft_cd(t_cmd *cmd, t_env **env)
 {
-	// int		state;
 	char	buf[PATH_MAX];
 
 	if (!cmd->cmd_args[1] || \
-		ft_strncmp("--", cmd->cmd_args[1], \
+		!ft_strncmp("--", cmd->cmd_args[1], \
 			ft_max(2, ft_strlen(cmd->cmd_args[1]))) || \
-		ft_strncmp("~", cmd->cmd_args[1], ft_strlen(cmd->cmd_args[1])))
+		!ft_strncmp("~", cmd->cmd_args[1], ft_strlen(cmd->cmd_args[1])))
 	{
 		cd_home(env);
 		return ;
 	}
-	if (ft_strncmp("-", cmd->cmd_args[1], ft_strlen(cmd->cmd_args[1])))
+	if (!ft_strncmp("-", cmd->cmd_args[1], ft_strlen(cmd->cmd_args[1])))
 	{
 		cd_old(env);
 		return ;
 	}
+	if (!ft_strncmp(".", cmd->cmd_args[1], ft_strlen(cmd->cmd_args[1])) || \
+		!ft_strncmp("..", cmd->cmd_args[1], \
+			ft_max(2, ft_strlen(cmd->cmd_args[1]))))
+		edit_env_vars(env, buf);
 	if (chdir(cmd->cmd_args[1]))
 	{
-		perror("cd");
+		print_error("cd", cmd->cmd_args[1], strerror(errno));
 		return ;
 	}
-	modify_key(env, "OLDPWD", ft_strdup(buf));
-	getcwd(buf, PATH_MAX);
-	modify_key(env, "OLDPWD", ft_strdup(buf));
+	edit_env_vars(env, buf);
 }
