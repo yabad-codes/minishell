@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:02:19 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/24 12:39:03 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/25 15:13:42 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	is_delim(char c1, char c2, t_state toggle)
 		return (IN);
 	else if (c1 == ' ')
 		return (c1);
+	else if (c1 == '\t')
+		return (' ');
 	else
 		return (FALSE);
 }
