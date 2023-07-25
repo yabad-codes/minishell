@@ -18,6 +18,7 @@ SRC = 	minishell.c \
 		parser/parser_utils.c \
 		parser/exec_arg.c \
 		parser/expand_variables.c \
+		parser/expand_variables_utils.c \
 		exec/exec.c \
 		exec/handling_redirections.c \
 		exec/redirection_cases.c \

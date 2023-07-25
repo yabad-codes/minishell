@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:51:23 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/24 11:51:12 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/24 17:33:33 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,10 @@ static char	*get_env_val(t_token *token_head, char *str)
 	int		env_len;
 
 	env_len = 0;
-	if (str[env_len] == '?')
-		return (ft_itoa(g_exit_status));
-	else
-	{
-		while ((str[env_len] >= 'A' && str[env_len] <= 'Z') \
-		|| (str[env_len] >= 'a' && str[env_len] <= 'z') || str[env_len] == '_')
-			env_len++;
-	}
+	while ((str[env_len] >= 'A' && str[env_len] <= 'Z') \
+	|| (str[env_len] >= 'a' && str[env_len] <= 'z') || str[env_len] == '_')
+		env_len++;
 	locate_env = ft_substr(str, 0, env_len);
-	// printf("The locate env: %s\n", locate_env);
 	if (!locate_env)
 		free_tokens_and_exit(token_head);
 	env = getenv(locate_env);
@@ -52,7 +46,7 @@ static char	*get_env_val(t_token *token_head, char *str)
 }
 
 static int	detect_env_and_join(t_token *token_head, char *token_val, \
-						char **val, int *token_pos)
+						char **val, int *tok_valpos)
 {
 	char	*env;
 	char	*temp;
@@ -63,18 +57,13 @@ static int	detect_env_and_join(t_token *token_head, char *token_val, \
 		env = get_env_val(token_head, token_val + 1);
 		temp = *val;
 		token_val++;
-		if (*token_val == '?')
-			*token_pos += 2;
-		else
+		while ((*token_val >= 'A' && *token_val <= 'Z') \
+		|| (*token_val >= 'a' && *token_val <= 'z') || *token_val == '_')
 		{
-			while ((*token_val >= 'A' && *token_val <= 'Z') \
-			|| (*token_val >= 'a' && *token_val <= 'z') || *token_val == '_')
-			{
-				(*token_pos)++;
-				token_val++;
-			}
-			(*token_pos)++;
+			(*tok_valpos)++;
+			token_val++;
 		}
+		(*tok_valpos)++;
 		if (!env)
 			return (TRUE);
 		*val = ft_strjoin(*val, env);
@@ -113,6 +102,9 @@ char	*expand_var(t_token *token_head, t_expand is_expand, char *token_val)
 	{
 		while (successive_dollars(token_head, &token_val[tok_pos], &expand_val))
 			tok_pos += 2;
+		if (add_exit_code(token_head, &token_val[tok_pos], \
+		&expand_val, &tok_pos))
+			continue ;
 		if (detect_env_and_join(token_head, &token_val[tok_pos], \
 		&expand_val, &tok_pos))
 			continue ;

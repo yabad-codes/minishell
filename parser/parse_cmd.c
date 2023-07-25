@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 18:09:52 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/24 10:09:38 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/24 16:08:24 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	extract_cmd(t_token *token, t_redir **redir_list, \
 		if (token->type == IN || token->type == OUT || \
 			token->type == APPEND || token->type == HRDOC)
 		{
-			add_redir(redir_list, new_redir(token->type, token->next->token));
+			add_redir(redir_list, new_redir(token->type, token->next->token, \
+			token->next->hrd_quotes));
 			token = token->next;
 			(*tracker)++;
 			if (!token->next)
@@ -80,13 +81,13 @@ t_token	*expand(t_token *token_head)
 	while (token_head)
 	{
 		rm_quotes = remove_quotes(tmp, token_head->token, token_head, prev_tok);
-		add_token(&new, new_token(expand_var(tmp, token_head->expand, \
-				rm_quotes), token_head->type, FALSE));
+		free(token_head->token);
+		token_head->token = rm_quotes;
+		token_head->token = expand_var(tmp, token_head->expand, rm_quotes);
 		prev_tok = token_head;
 		token_head = token_head->next;
 	}
-	clear_tokens(token_head);
-	return (new);
+	return (tmp);
 }
 
 t_ast	*parse_cmd(t_token *token_head, int *tracker)

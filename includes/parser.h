@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:21:10 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/24 10:10:26 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/24 17:36:10 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_redir
 	t_token_type	type;
 	char			*file;
 	char			*herdoc_file;
+	bool			hrd_quotes;
 	struct s_redir	*next;
 }	t_redir;
 
@@ -54,7 +55,7 @@ typedef struct s_ast
  * @param file		the file to redirect to.
  * @return A newly allocated redir data type
 */
-t_redir	*new_redir(t_token_type type, char *file);
+t_redir	*new_redir(t_token_type type, char *file, bool is_quotes);
 
 /**
  * @brief Add the new allocated redir node to a list
@@ -144,5 +145,6 @@ t_ast	*parse_cmd(t_token *token_head, int *tracker);
 */
 void	add_cmd_arg(char ***cmd_arg, char *new);
 void	print_cmd_arg(char **cmd_arg);
-
+int		add_exit_code(t_token *token_head, char *token_val, \
+					char **val, int *tok_valpos);
 #endif
