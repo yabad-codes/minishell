@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_err.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 09:46:08 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/24 12:21:26 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/25 13:20:38 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void	error_message(t_error_code error)
 		error_file_message(NULL, "syntax error near unexpected token");
 	else
 		error_file_message(NULL, "syntax error near unexpected token");
+	g_data.exit_status = 258;
 }
 
 static t_error_code	get_error_code(t_token *tokens)
