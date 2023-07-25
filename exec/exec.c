@@ -6,44 +6,35 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:56:43 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/24 20:50:35 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/24 15:06:08 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	cmd_run(t_cmd *cmd, t_env **env, t_redir_error *error)
-{
-	t_builtin_type	builtin;
-
-	handling_redirections(cmd->redir, error);
-	if (cmd->cmd_args)
-	{
-		builtin = is_builtin(cmd->cmd_args[0]);
-		if (builtin)
-		{
-			execute_builtin(cmd, builtin, env);
-			exit(EXIT_SUCCESS);
-		}
-		execv(get_path(cmd->cmd_args[0], *env), cmd->cmd_args);
-		exec_error(strerror(errno), cmd);
-	}
-	exit(EXIT_SUCCESS);
-}
 
 int	execute_cmd(t_cmd *cmd, t_env **env)
 {
 	int				id;
 	int				status;
 	t_redir_error	is_redir_error;
+	t_builtin_type	builtin;
 
 	handling_redirections(cmd->redir, &is_redir_error);
-	if (cmd->cmd_args && !ft_strncmp(cmd->cmd_args[0], "exit", \
-	ft_strlen(cmd->cmd_args[0])))
-		ft_exit(cmd);
+	if (cmd->cmd_args)
+	{
+		builtin = is_builtin(cmd->cmd_args[0]);
+		if (builtin)
+		{
+			execute_builtin(cmd, builtin, env);
+			return (0);
+		}
+	}
 	id = fork();
 	if (id == 0)
-		cmd_run(cmd, env, &is_redir_error);
+	{
+		execv(get_path(cmd->cmd_args[0], *env), cmd->cmd_args);
+		exec_error(strerror(errno), cmd);
+	}
 	else if (id > 0)
 	{
 		waitpid(id, &status, 0);
