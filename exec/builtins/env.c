@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 09:44:15 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/21 11:17:33 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/25 10:34:50 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,13 @@ static void	print_env(t_env *env)
 {
 	while (env)
 	{
-		printf("%s=%s\n", env->key, env->value);
-		env = env->next;
+		if (env->key && env->value)
+		{
+			printf("%s=%s\n", env->key, env->value);
+			env = env->next;
+		}
+		else
+			env = env->next;
 	}
 }
 
