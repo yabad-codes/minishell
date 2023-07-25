@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/24 12:34:48 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/25 12:25:10 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	conductor(char *input, t_env **env)
 		if (!ast)
 			return ;
 		handling_herdocs(ast, &num);
-		g_exit_status = execute(ast, ast, env);
+		g_data.exit_status = execute(ast, ast, env);
 	}
 	return ;
 }
@@ -63,7 +63,7 @@ int	main(int ac, char **av, char **envp)
 	t_vars	v;
 
 	(void)ac, (void)av;
-	v.env = get_env(envp);
+	g_data.env = get_env(envp);
 	v.prompt = custom_prompt(getenv("USER"));
 	v.savestdout = dup(STDOUT_FILENO);
 	v.savestdin = dup(STDIN_FILENO);
@@ -75,7 +75,7 @@ int	main(int ac, char **av, char **envp)
 		if (ft_strncmp(v.input, "\n", ft_strlen(v.input)))
 		{
 			add_history(v.input);
-			conductor(v.input, &v.env);
+			conductor(v.input, &(g_data.env));
 			dup2(v.savestdin, STDIN_FILENO);
 			dup2(v.savestdout, STDOUT_FILENO);
 		}

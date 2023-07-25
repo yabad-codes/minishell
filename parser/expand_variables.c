@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variables.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:51:23 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/24 17:33:33 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/25 12:18:36 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*get_env_val(t_token *token_head, char *str)
 	locate_env = ft_substr(str, 0, env_len);
 	if (!locate_env)
 		free_tokens_and_exit(token_head);
-	env = getenv(locate_env);
+	env = get_value(g_data.env, locate_env);
 	return (free(locate_env), env);
 }
 

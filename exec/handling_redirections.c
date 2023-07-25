@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handling_redirections.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:13:03 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/25 09:50:45 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/25 12:30:14 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,4 @@ void	handling_redirections(t_redir *list, t_redir_error *error)
 		return ;
 	}
 	error_file_message(error->filename, error->error_message);
-	exit(EXIT_FAILURE);
 }

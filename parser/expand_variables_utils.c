@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variables_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 17:12:41 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/24 17:36:05 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/25 12:19:40 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	add_exit_code(t_token *token_head, char *token_val, \
 	temp = *val;
 	if (*token_val == '$' && *(token_val + 1) == '?')
 	{
-		in_toa = ft_itoa(g_exit_status);
+		in_toa = ft_itoa(g_data.exit_status);
 		*val = ft_strjoin(*val, in_toa);
 		free(temp);
 		free(in_toa);
