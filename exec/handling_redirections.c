@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:13:03 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/24 16:19:49 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/25 09:50:45 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	write_to_tmpfile(bool is_quotes, char *delim, int fd_in)
 	line = readline("> ");
 	while (line != NULL)
 	{
-		if (!ft_strncmp(line, delim, ft_strlen(line)) && line[0] != '\0' \
+		if (!ft_strncmp(line, delim, ft_strlen(line)) \
 		&& line[ft_strlen(line) - 1] == delim[ft_strlen(delim) - 1])
 		{
 			free(line);
