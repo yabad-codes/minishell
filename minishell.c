@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/25 12:25:10 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/26 10:21:53 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,23 @@ static char	*custom_prompt(char *user)
 	return (prompt);
 }
 
+void	handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+}
+
+void	handle_sig(void)
+{
+	signal(SIGINT, handler);
+	signal(SIGQUIT, SIG_IGN);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	t_vars	v;
@@ -69,6 +86,7 @@ int	main(int ac, char **av, char **envp)
 	v.savestdin = dup(STDIN_FILENO);
 	while (TRUE)
 	{
+		handle_sig();
 		v.input = readline(v.prompt);
 		if (!v.input)
 			break ;

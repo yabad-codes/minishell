@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:56:43 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/24 15:06:08 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/26 10:14:59 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	child_handler(int sig)
+{
+	if (sig == SIGINT)
+		signal(SIGINT, SIG_IGN);
+}
 
 int	execute_cmd(t_cmd *cmd, t_env **env)
 {
@@ -29,9 +35,11 @@ int	execute_cmd(t_cmd *cmd, t_env **env)
 			return (0);
 		}
 	}
+	signal(SIGINT, SIG_IGN);
 	id = fork();
 	if (id == 0)
 	{
+		signal(SIGINT, child_handler);
 		execv(get_path(cmd->cmd_args[0], *env), cmd->cmd_args);
 		exec_error(strerror(errno), cmd);
 	}
@@ -51,6 +59,7 @@ int	execute_cmd(t_cmd *cmd, t_env **env)
 
 void	execute_left(t_ast *ast, t_ast *head, int *fd, t_env **env)
 {
+	signal(SIGINT, child_handler);
 	close(fd[0]);
 	dup2(fd[1], STDOUT_FILENO);
 	execute(ast->left, head, env);
@@ -62,6 +71,7 @@ void	execute_right(t_ast *ast, t_ast *head, int *fd, t_env **env)
 {
 	int	status;
 
+	signal(SIGINT, child_handler);
 	close(fd[1]);
 	dup2(fd[0], STDIN_FILENO);
 	status = execute(ast->right, head, env);
@@ -92,18 +102,19 @@ int		execute(t_ast *ast, t_ast *head, t_env **env)
 	pid_t	lchild_pid;
 	pid_t	rchild_pid;
 
-
 	if (ast->node->type == NODE_CMD)
 		return (execute_cmd(ast->node->cmd, env));
 	if (ast->node->type == NODE_PIPE)
 	{
 		if (pipe(fd) == -1)
 			free_ast_and_exit(head);
+		signal(SIGINT, SIG_IGN);
 		lchild_pid = fork();
 		if (lchild_pid == -1)
 			free_ast_and_exit(head);
 		if (lchild_pid == 0)
 			execute_left(ast, head, fd, env);
+		signal(SIGINT, SIG_IGN);
 		rchild_pid = fork();
 		if (rchild_pid == -1)
 			free_ast_and_exit(head);
