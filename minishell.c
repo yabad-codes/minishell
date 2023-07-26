@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/26 10:21:53 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/26 10:59:57 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	conductor(char *input, t_env **env)
 		if (!ast)
 			return ;
 		handling_herdocs(ast, &num);
+		signal(SIGINT, SIG_IGN);
 		g_data.exit_status = execute(ast, ast, env);
 	}
 	return ;

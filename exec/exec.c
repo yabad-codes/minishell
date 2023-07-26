@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:56:43 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/26 10:14:59 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/26 11:01:54 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	child_handler(int sig)
 {
 	if (sig == SIGINT)
-		signal(SIGINT, SIG_IGN);
+		signal(SIGINT, SIG_DFL);
 }
 
 int	execute_cmd(t_cmd *cmd, t_env **env)
@@ -35,7 +35,6 @@ int	execute_cmd(t_cmd *cmd, t_env **env)
 			return (0);
 		}
 	}
-	signal(SIGINT, SIG_IGN);
 	id = fork();
 	if (id == 0)
 	{
@@ -50,7 +49,7 @@ int	execute_cmd(t_cmd *cmd, t_env **env)
 			return (((*(int *)&(status)) >> 8) & 0x000000ff);
 		if (((*(int *)&(status)) & 0177) != 0177 \
 		&& ((*(int *)&(status)) & 0177) != 0)
-			return (((*(int *)&(status)) & 0177));
+			return (128 + ((*(int *)&(status)) & 0177));
 	}
 	else
 		exit(EXIT_FAILURE);
@@ -108,13 +107,11 @@ int		execute(t_ast *ast, t_ast *head, t_env **env)
 	{
 		if (pipe(fd) == -1)
 			free_ast_and_exit(head);
-		signal(SIGINT, SIG_IGN);
 		lchild_pid = fork();
 		if (lchild_pid == -1)
 			free_ast_and_exit(head);
 		if (lchild_pid == 0)
 			execute_left(ast, head, fd, env);
-		signal(SIGINT, SIG_IGN);
 		rchild_pid = fork();
 		if (rchild_pid == -1)
 			free_ast_and_exit(head);
