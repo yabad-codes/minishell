@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 13:18:54 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/21 16:36:33 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/26 12:55:27 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ char	*get_value(t_env *env, char *key)
 {
 	while (env)
 	{
-		if (!ft_strncmp(env->key, key, ft_strlen(key)))
+		if (!ft_strncmp(env->key, key, \
+			ft_max(ft_strlen(key), ft_strlen(env->key))))
 			return (env->value);
 		env = env->next;
 	}
