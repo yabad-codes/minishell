@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 13:15:01 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/24 12:54:21 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/26 13:17:39 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	print_error(char *cmd, char *filename, char *error_message)
 
 void	exec_error(char *msg, t_cmd *cmd)
 {
-	if (!ft_strncmp(strerror(errno), "Bad address", 11))
+	if (errno == EACCES || errno == EFAULT)
 	{
 		error_file_message(cmd->cmd_args[0], "command not found");
 		exit(127);
