@@ -1,11 +1,10 @@
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 NAME = minishell
 INCLUDES = ./includes
 
 SRC = 	minishell.c \
 		free.c \
-		print.c \
 		lexer/lexer.c \
 		lexer/token_list.c \
 		lexer/utils.c \
@@ -45,10 +44,10 @@ OBJS = $(SRC:.c=.o)
 all: $(NAME)
 
 %.o: %.c $(LIBFT_LIB) $(HEADER)
-	@$(CC) -I $(INCLUDES) $(CFLAGS) -I $(READLINE)/include -c $< -o $@
+	@$(CC) -I $(INCLUDES) $(CFLAGS) -I $(READLINE)/include/readline -c $< -o $@
 
 $(NAME): $(OBJS) $(HEADER)
-	@$(CC) $(CFLAGS) $(LIBFT_LIB) -L $(READLINE)/lib -lreadline $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(LIBFT_LIB) -I $(READLINE)/include/readline $(OBJS) -lreadline -L $(READLINE)/lib -o $(NAME)
 
 $(LIBFT_LIB):
 	@$(MAKE) bonus -C $(LIBFT_DIR)

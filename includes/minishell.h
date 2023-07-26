@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:02:21 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/25 12:19:21 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/26 10:21:03 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct s_data
 
 t_data	g_data;
 
+
+void	rl_replace_line(const char *str, int n);
 t_token	*lexer(char *input);
 t_ast	*parser(t_token *tokens);
 
@@ -52,6 +54,8 @@ void	modify_key(t_env **env, char *key, char *value);
 void	del_key(t_env *env, void (*del)(void *));
 void	add_key(t_env **env, t_env *new);
 t_env	*new_key(char *key, char *value);
+
+void	handler(int sig);
 
 /*	PRINT PROTOTYPE	*/
 void	print_ast(t_ast *ast);
