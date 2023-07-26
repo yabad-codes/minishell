@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 14:56:43 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/26 11:01:54 by yabad            ###   ########.fr       */
+/*   Created: 2023/07/26 12:13:34 by yabad             #+#    #+#             */
+/*   Updated: 2023/07/26 12:16:06 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,38 @@ void	child_handler(int sig)
 {
 	if (sig == SIGINT)
 		signal(SIGINT, SIG_DFL);
+}
+
+char	**cnv_to_envp(t_env *env)
+{
+	char	**envp;
+	int		i;
+	t_env	*tmp;
+
+	i = 0;
+	tmp = env;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	envp = malloc(sizeof(char *) * (i + 1));
+	if (!envp)
+		exit(EXIT_FAILURE);
+	i = 0;
+	while (env)
+	{
+		envp[i] = ft_strjoin(env->key, "=");
+		if (!envp[i])
+			exit(EXIT_FAILURE);
+		envp[i] = ft_strjoin(envp[i], env->value);
+		if (!envp[i])
+			exit(EXIT_FAILURE);
+		env = env->next;
+		i++;
+	}
+	envp[i] = NULL;
+	return (envp);
 }
 
 int	execute_cmd(t_cmd *cmd, t_env **env)
@@ -39,7 +71,7 @@ int	execute_cmd(t_cmd *cmd, t_env **env)
 	if (id == 0)
 	{
 		signal(SIGINT, child_handler);
-		execv(get_path(cmd->cmd_args[0], *env), cmd->cmd_args);
+		execve(get_path(cmd->cmd_args[0], *env), cmd->cmd_args, cnv_to_envp(*env));
 		exec_error(strerror(errno), cmd);
 	}
 	else if (id > 0)
@@ -95,6 +127,7 @@ int	close_fds_and_wait_for_childs(int *fd, \
 	return (-1);
 }
 
+
 int		execute(t_ast *ast, t_ast *head, t_env **env)
 {
 	int		fd[2];
@@ -121,4 +154,3 @@ int		execute(t_ast *ast, t_ast *head, t_env **env)
 	}
 	return (-1);
 }
-	
