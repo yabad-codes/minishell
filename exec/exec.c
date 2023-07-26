@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:56:43 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/26 11:01:54 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/26 12:00:48 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,24 @@ void	child_handler(int sig)
 {
 	if (sig == SIGINT)
 		signal(SIGINT, SIG_DFL);
+}
+
+char	**cnv_to_envp(t_env *env)
+{
+	char	**envp;
+	int		env_len;
+	t_env	*temp;
+
+	temp = env;
+	while (temp)
+	{
+		env_len++;
+		temp = temp->next;
+	}
+	envp = malloc((env_len + 1) * sizeof(char *));
+	if (!envp)
+		exit(EXIT_FAILURE);
+	while (env)
 }
 
 int	execute_cmd(t_cmd *cmd, t_env **env)
@@ -39,8 +57,9 @@ int	execute_cmd(t_cmd *cmd, t_env **env)
 	if (id == 0)
 	{
 		signal(SIGINT, child_handler);
-		execv(get_path(cmd->cmd_args[0], *env), cmd->cmd_args);
-		exec_error(strerror(errno), cmd);
+		execve(get_path(cmd->cmd_args[0], *env), cmd->cmd_args, env);
+		printf("%d: %s\n", errno, strerror(errno));
+		// exec_error(strerror(errno), cmd);
 	}
 	else if (id > 0)
 	{

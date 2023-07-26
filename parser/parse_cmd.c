@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 18:09:52 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/24 16:08:24 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/25 20:41:50 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ t_token	*expand(t_token *token_head)
 	prev_tok = NULL;
 	while (token_head)
 	{
+		token_head->token = expand_var(tmp, token_head->expand, token_head->token);
 		rm_quotes = remove_quotes(tmp, token_head->token, token_head, prev_tok);
 		free(token_head->token);
 		token_head->token = rm_quotes;
-		token_head->token = expand_var(tmp, token_head->expand, rm_quotes);
 		prev_tok = token_head;
 		token_head = token_head->next;
 	}

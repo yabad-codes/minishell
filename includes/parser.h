@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:21:10 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/24 17:36:10 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:02:31 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,6 @@ t_ast	*parse_cmd(t_token *token_head, int *tracker);
 */
 void	add_cmd_arg(char ***cmd_arg, char *new);
 void	print_cmd_arg(char **cmd_arg);
-int		add_exit_code(t_token *token_head, char *token_val, \
-					char **val, int *tok_valpos);
+void	add_exit_code(t_token *token_head, char **token_val, \
+					char **val);
 #endif
