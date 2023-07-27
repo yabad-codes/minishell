@@ -6,17 +6,24 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 09:46:25 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/21 12:31:07 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/27 21:05:46 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 bool	is_valid_identifier(char *var)
 {
-	if (ft_isalpha(var[0]) || var[0] == '_')
-		return (true);
-	return (false);
+	if (!(ft_isalpha(var[0]) || var[0] == '_'))
+		return (false);
+	var++;
+	while (*var)
+	{
+		if (!ft_isalpha(*var) && !ft_isdigit(*var) && *var != '_')
+			return (false);
+		var++;
+	}
+	return (true);
 }
 
 static void	remove_env_elem(t_env **env, char *key)
