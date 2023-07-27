@@ -3,28 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 19:08:42 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/21 11:24:02 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:21:06 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
-// #include "includes/lexer.h"
-// #include "includes/parser.h"
+#include "minishell.h"
 
-void    free_ast_and_exit(t_ast *ast)
+void	free_tokens_and_exit(t_token *token_head)
 {
-    (void)ast;
-    printf("free_ast_and_exit\n");
-    exit(1);
+	clear_tokens(token_head);
+	exit(EXIT_FAILURE);
 }
 
-void    free_tokens_and_exit(t_token *token_head)
+void	free_ast_and_exit(t_ast *ast)
 {
-    (void)token_head;
-    printf("free_tokens_and_exit\n");
-    exit(1);
-    // implementation of this function
+	free_ast(ast);
+	exit(EXIT_FAILURE);
+}
+
+void	free_ast(t_ast *ast)
+{
+	if (!ast)
+		return ;
+	if (ast->node)
+		delete_node(ast->node);
+	if (ast->left)
+		free_ast(ast->left);
+	if (ast->right)
+		free_ast(ast->right);
+	free(ast);
 }

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:20:54 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/19 13:06:11 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/27 21:00:07 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/parser.h"
+#include "minishell.h"
 
 t_token	*search_pipe(t_token *token)
 {
@@ -33,17 +32,12 @@ t_ast	*build_ast(t_token *token_head, t_token *token_pipe, int *tracker_cmd)
 	{
 		ast = malloc(sizeof(t_ast));
 		if (!ast)
-		{
-			// free tokens
-			exit(1);
-		}
+			free_tokens_and_exit(token_head);
 		ast->node = create_node(NULL, NODE_PIPE);
 		if (!ast->node)
-		{
-			// free tokens
-			exit(1);
-		}
-		ast->left = build_ast(token_head, search_pipe(token_pipe->next), tracker_cmd);
+			free_tokens_and_exit(token_head);
+		ast->left = build_ast(token_head, \
+				search_pipe(token_pipe->next), tracker_cmd);
 		ast->right = parse_cmd(token_head, tracker_cmd);
 		return (ast);
 	}
@@ -58,6 +52,5 @@ t_ast	*parser(t_token *tokens)
 	ast = NULL;
 	tracker_cmd = 0;
 	ast = build_ast(tokens, search_pipe(tokens), &tracker_cmd);
-	// print_ast(ast);
 	return (ast);
 }

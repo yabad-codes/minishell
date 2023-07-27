@@ -6,11 +6,11 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/27 10:58:00 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/27 17:07:40 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
 typedef struct s_mini_vars
 {
@@ -37,13 +37,14 @@ void	conductor(char *input, t_env **env)
 			return ;
 		signal(SIGINT, SIG_IGN);
 		handling_herdocs(ast, &num);
-		if (g_data.exit_status != 130 && g_data.exit_status != 131)
+		if (g_data.atomic == false)
 		{
 			g_data.exit_status = execute(ast, ast, env);
 			return ;
 		}
-		g_data.exit_status = 0;
+		g_data.atomic = false;
 	}
+	free_ast(ast);
 	return ;
 }
 
@@ -64,23 +65,6 @@ static char	*custom_prompt(char *user)
 	return (prompt);
 }
 
-void	handler(int sig)
-{
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}
-
-void	handle_sig(void)
-{
-	signal(SIGINT, handler);
-	signal(SIGQUIT, SIG_IGN);
-}
-
 int	main(int ac, char **av, char **envp)
 {
 	t_vars	v;
@@ -96,7 +80,7 @@ int	main(int ac, char **av, char **envp)
 		v.input = readline(v.prompt);
 		if (!v.input)
 			break ;
-		if (ft_strncmp(v.input, "\n", ft_strlen(v.input)))
+		if (v.input[0])
 		{
 			add_history(v.input);
 			conductor(v.input, &(g_data.env));

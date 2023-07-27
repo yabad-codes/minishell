@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 10:43:58 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/27 09:53:06 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/27 19:11:08 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,27 @@ int				ft_max(int a, int b);
 bool			is_valid_identifier(char *var);
 
 /**
+ * Signals
+*/
+
+void			handle_sig(void);
+void			child_handler(int sig);
+
+/**
  * Redirections
 */
-void	handling_redirections(t_redir *list, t_redir_error *error);
-void	out_redir(char *filename, t_redir_error *error, int *fd_out);
-void	append_redir(char *filename, t_redir_error *error, int *fd_out);
-void	in_redir(char *filename, t_redir_error *error, int *fd_in);
-void	herdoc_redir(int read_end, \
-t_redir_error *error, int *fd_in);
-void	error_file_message(char *filename, char *error_message);
-void	print_error(char *cmd, char *filename, char *error_message);
-void	handling_herdocs(t_ast *ast, int *num);
-void	launch_redirections(t_redir *list, t_redir_error *error, t_fds *fds);
-void	exec_error(char *msg, t_cmd *cmd);
+void			handling_redirections(t_redir *list, t_redir_error *error);
+void			out_redir(char *filename, t_redir_error *error, int *fd_out);
+void			append_redir(char *filename, t_redir_error *error, int *fd_out);
+void			in_redir(char *filename, t_redir_error *error, int *fd_in);
+void			herdoc_redir(int read_end, t_redir_error *error, int *fd_in);
+void			error_file_message(char *filename, char *error_message);
+void			print_error(char *cmd, char *filename, char *error_message);
+void			handling_herdocs(t_ast *ast, int *num);
+void			launch_redirections(t_redir *list, \
+					t_redir_error *error, t_fds *fds);
+void			exec_error(char *msg, t_cmd *cmd);
+void			execute_cmd_child(t_cmd *cmd, t_env **env);
+char			**cnv_to_envp(t_env *env);
 
 #endif

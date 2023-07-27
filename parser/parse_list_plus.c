@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_list_plus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:40:11 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/24 14:26:24 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/27 20:59:55 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/parser.h"
+#include "minishell.h"
 
 t_redir	*new_redir(t_token_type type, char *file, bool is_quotes)
 {
@@ -59,6 +58,6 @@ void	clear_redir(t_redir *redir)
 	{
 		tmp = redir;
 		redir = redir->next;
-		delete_redir(redir);
+		delete_redir(tmp);
 	}
 }

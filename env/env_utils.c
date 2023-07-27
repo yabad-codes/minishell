@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 13:18:54 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/26 12:55:27 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/27 20:57:03 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 char	*get_value(t_env *env, char *key)
 {
@@ -35,6 +35,7 @@ void	modify_key(t_env **env, char *key, char *value)
 		if (!ft_strncmp(tmp->key, key, \
 			ft_max(ft_strlen(key), ft_strlen(tmp->key))))
 		{
+			free(key);
 			free(tmp->value);
 			tmp->value = value;
 			return ;

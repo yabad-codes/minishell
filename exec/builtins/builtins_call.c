@@ -6,11 +6,11 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:55:18 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/24 12:37:36 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/27 20:57:25 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	ft_max(int a, int b)
 {

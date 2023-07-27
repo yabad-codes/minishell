@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_err_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 08:58:22 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/19 13:02:35 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:16:22 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/lexer.h"
+#include "minishell.h"
 
 int	matched_quotes(t_token *tokens)
 {

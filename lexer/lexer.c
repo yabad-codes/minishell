@@ -6,12 +6,11 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:51:29 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/24 12:39:51 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/27 17:19:12 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/lexer.h"
+#include "minishell.h"
 
 typedef struct s_vars
 {
@@ -22,6 +21,12 @@ typedef struct s_vars
 	int		prev_delim;
 	bool	is_expandable;
 }	t_vars;
+
+typedef struct s_tmp
+{
+	char	*tmp;
+	char	*to_str_tmp;
+}	t_tmp;
 
 int	token_exist(char *token)
 {
@@ -40,9 +45,15 @@ void	vars_init(t_vars *vars, int *i)
 
 void	run_scenarios(t_vars *vars, char c)
 {
+	t_tmp	tmp;
+
 	if (!vars->delim)
 	{
-		vars->token = ft_strjoin(vars->token, to_str(c));
+		tmp.tmp = vars->token;
+		tmp.to_str_tmp = to_str(c);
+		vars->token = ft_strjoin(vars->token, tmp.to_str_tmp);
+		free(tmp.tmp);
+		free(tmp.to_str_tmp);
 		if (vars->toggle != SINGLE && c == '$')
 			vars->is_expandable = true;
 	}

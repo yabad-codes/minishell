@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:02:21 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/26 11:31:36 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:01:55 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@
 # include <errno.h>
 # include <stdbool.h>
 # include <sys/param.h>
-# include "../Libft/libft.h"
+# include <sys/wait.h>
 # include "lexer.h"
 # include "parser.h"
 # include "executor.h"
+# include "../Libft/libft.h"
 
 # define ANSI_COLOR_SKY_BLUE   "\033[1;36m"
 # define ANSI_COLOR_RESET      "\x1b[0m"
@@ -36,10 +37,10 @@ typedef struct s_data
 {
 	t_env	*env;
 	int		exit_status;
+	bool	atomic;
 }	t_data;
 
 t_data	g_data;
-
 
 void	rl_replace_line(const char *str, int n);
 t_token	*lexer(char *input);
@@ -55,12 +56,4 @@ void	del_key(t_env *env, void (*del)(void *));
 void	add_key(t_env **env, t_env *new);
 t_env	*new_key(char *key, char *value);
 
-void	handler(int sig);
-
-/*	PRINT PROTOTYPE	*/
-void	print_ast(t_ast *ast);
-void	print_redir(t_redir *redir);
-void	print_cmd(t_cmd *cmd);
-void	print_tokens(t_token *tokens);
-char	*token_type(t_token_type type);
 #endif

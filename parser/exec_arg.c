@@ -6,12 +6,11 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 22:15:11 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/12 20:19:13 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/27 20:59:44 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/parser.h"
+#include "minishell.h"
 
 int	ft_arrlen(char **arr)
 {
@@ -35,10 +34,7 @@ void	add_cmd_arg(char ***cmd_arg, char *new)
 	tmp = *cmd_arg;
 	new_cmd_arg = (char **)malloc(sizeof(char *) * (i + 2));
 	if (!new_cmd_arg)
-	{
-		// free tokens
-		exit(1);
-	}
+		exit(EXIT_FAILURE);
 	ft_memcpy(new_cmd_arg, *cmd_arg, sizeof(char *) * i);
 	new_cmd_arg[i] = ft_strdup(new);
 	new_cmd_arg[i + 1] = NULL;

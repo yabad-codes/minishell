@@ -6,11 +6,11 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:47:55 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/27 09:52:20 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/27 17:27:32 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 void	out_redir(char *filename, t_redir_error *error, int *fd_out)
 {

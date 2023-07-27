@@ -6,49 +6,17 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:13:03 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/27 10:57:37 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/27 19:12:50 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
-// char	*generate_tmp_file(int *num)
-// {
-// 	char		*new_tmp_file;
-// 	char		*num_cnv;
-
-// 	num_cnv = ft_itoa(*num);
-// 	new_tmp_file = ft_strjoin("/tmp/tmpfile", num_cnv);
-// 	if (!new_tmp_file || !num_cnv)
-// 		exit(EXIT_FAILURE);
-// 	free(num_cnv);
-// 	(*num)++;
-// 	return (new_tmp_file);
-// }
-
-// void	write_to_tmpfile(bool is_quotes, char *delim, int fd_in)
-// {
-// 	char	*line;
-
-// 	line = readline("> ");
-// 	while (line != NULL)
-// 	{
-// 		if (!ft_strncmp(line, delim, ft_max(ft_strlen(line), ft_strlen(delim))))
-// 		{
-// 			free(line);
-// 			break ;
-// 		}
-// 		if (is_quotes == false)
-// 			line = expand_var(NULL, TRUE, line);
-// 		write(fd_in, line, ft_strlen(line));
-// 		write(fd_in, "\n", 1);
-// 		free(line);
-// 		line = readline("> ");
-// 	}
-// }
-
-//void write_to_pipe(bool hrd_quotes, char *delim, int fd_out)
-/*this function will join the lines of the heredoc and write them to the pipe.*/
+typedef enum e_proc
+{
+	CHILD,
+	PARENT
+}	t_proc;
 
 void	write_to_pipe(bool hrd_quotes, char *delim, int fd_out)
 {
@@ -76,51 +44,45 @@ void	write_to_pipe(bool hrd_quotes, char *delim, int fd_out)
 	}
 }
 
-// void	herdoc_handler(int sig)
-// {
-// 	if (sig == SIGINT)
-// 	{
-// 		write(1, "\n", 1);
-// 		rl_on_new_line();
-// 		rl_replace_line("", 0);
-// 		// rl_redisplay();
-// 		// exit(2);
-// 		// signal(SIGINT, SIG_DFL);
-// 	}
-// }
+void	child_writing_in_pipe(t_redir *redir, t_proc proc, int id)
+{
+	int	status;
+
+	if (proc == CHILD)
+	{
+		signal(SIGINT, SIG_DFL);
+		close(redir->fd[0]);
+		write_to_pipe(redir->hrd_quotes, redir->file, redir->fd[1]);
+		close(redir->fd[1]);
+		exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		waitpid(id, &status, 0);
+		close(redir->fd[1]);
+		if (((*(int *)&(status)) & 0177) != 0177 \
+			&& ((*(int *)&(status)) & 0177) != 0)
+		{
+			g_data.exit_status = 1;
+			g_data.atomic = true;
+		}
+	}
+}
 
 void	open_pipe_and_write(t_redir *redir)
 {
 	int	id;
-	int	status;
 
-	while (redir && g_data.exit_status != 130 && g_data.exit_status != 131)
+	while (redir && g_data.atomic == false)
 	{
 		if (redir->type == HRDOC)
 		{
 			pipe(redir->fd);
 			id = fork();
 			if (id == 0)
-			{
-				signal(SIGINT, SIG_DFL);
-				signal(SIGQUIT, SIG_DFL);
-				close(redir->fd[0]);
-				write_to_pipe(redir->hrd_quotes, redir->file, redir->fd[1]);
-				close(redir->fd[1]);
-				exit(EXIT_SUCCESS);
-			}
+				child_writing_in_pipe(redir, CHILD, 0);
 			else if (id > 0)
-			{
-				waitpid(id, &status, 0);
-				close(redir->fd[1]);
-				if (((*(int *)&(status)) & 0177) != 0177 \
-					&& ((*(int *)&(status)) & 0177) != 0)
-				{
-					// printf("exit status: %d\n", g_data.exit_status);
-					g_data.exit_status = 128 + ((*(int *)&(status)) & 0177);
-				}
-				// printf("exit status: %d\n", g_data.exit_status);
-			}
+				child_writing_in_pipe(redir, PARENT, id);
 			else
 				exit(EXIT_FAILURE);
 		}

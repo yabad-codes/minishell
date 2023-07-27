@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror
 NAME = minishell
 INCLUDES = ./includes
 
@@ -19,6 +19,7 @@ SRC = 	minishell.c \
 		parser/expand_variables.c \
 		parser/expand_variables_utils.c \
 		exec/exec.c \
+		exec/exec_utils.c \
 		exec/handling_redirections.c \
 		exec/redirection_cases.c \
 		exec/error.c \
@@ -31,8 +32,9 @@ SRC = 	minishell.c \
 		exec/builtins/exit.c \
 		exec/builtins/export.c \
 		exec/builtins/unset.c \
+		exec/signal.c \
 		env/env.c \
-		env/env_utils.c
+		env/env_utils.c 
 
 
 HEADER = $(INCLUDES)/minishell.h

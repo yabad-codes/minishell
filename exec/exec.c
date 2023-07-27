@@ -6,82 +6,41 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 12:13:34 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/26 20:08:25 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/27 20:58:28 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
-void	child_handler(int sig)
-{
-	if (sig == SIGINT)
-		signal(SIGINT, SIG_DFL);
-}
-
-char	**cnv_to_envp(t_env *env)
-{
-	char	**envp;
-	int		i;
-	t_env	*tmp;
-
-	i = 0;
-	tmp = env;
-	while (tmp)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	envp = malloc(sizeof(char *) * (i + 1));
-	if (!envp)
-		exit(EXIT_FAILURE);
-	i = 0;
-	while (env)
-	{
-		envp[i] = ft_strjoin(env->key, "=");
-		if (!envp[i])
-			exit(EXIT_FAILURE);
-		envp[i] = ft_strjoin(envp[i], env->value);
-		if (!envp[i])
-			exit(EXIT_FAILURE);
-		env = env->next;
-		i++;
-	}
-	envp[i] = NULL;
-	return (envp);
-}
-
-int	execute_cmd(t_cmd *cmd, t_env **env)
+typedef struct s_exec_vars
 {
 	int				id;
 	int				status;
 	t_redir_error	is_redir_error;
 	t_builtin_type	builtin;
+}	t_exec_vars;
 
-	handling_redirections(cmd->redir, &is_redir_error);
+int	execute_cmd(t_cmd *cmd, t_env **env)
+{
+	t_exec_vars	v;
+
+	handling_redirections(cmd->redir, &(v.is_redir_error));
 	if (cmd->cmd_args)
 	{
-		builtin = is_builtin(cmd->cmd_args[0]);
-		if (builtin)
+		v.builtin = is_builtin(cmd->cmd_args[0]);
+		if (v.builtin)
+			return (execute_builtin(cmd, v.builtin, env), 0);
+		v.id = fork();
+		if (v.id == 0)
+			execute_cmd_child(cmd, env);
+		else if (v.id > 0)
 		{
-			execute_builtin(cmd, builtin, env);
-			return (0);
-		}
-		id = fork();
-		if (id == 0)
-		{
-			signal(SIGQUIT, SIG_DFL);
-			signal(SIGINT, child_handler);
-			execve(get_path(cmd->cmd_args[0], *env), cmd->cmd_args, cnv_to_envp(*env));
-			exec_error(strerror(errno), cmd);	
-		}
-		else if (id > 0)
-		{
-			waitpid(id, &status, 0);
-			if (((*(int *)&(status)) & 0177) == 0)
-				return (((*(int *)&(status)) >> 8) & 0x000000ff);
-			if (((*(int *)&(status)) & 0177) != 0177 \
-			&& ((*(int *)&(status)) & 0177) != 0)
-				return (128 + ((*(int *)&(status)) & 0177));
+			waitpid(v.id, &(v.status), 0);
+			if (((*(int *)&(v.status)) & 0177) == 0)
+				return (((*(int *)&(v.status)) >> 8) & 0x000000ff);
+			if (((*(int *)&(v.status)) & 0177) != 0177 \
+			&& ((*(int *)&(v.status)) & 0177) != 0)
+				return (128 + ((*(int *)&(v.status)) & 0177));
 		}
 		else
 			exit(EXIT_FAILURE);
@@ -126,11 +85,11 @@ int	close_fds_and_wait_for_childs(int *fd, \
 		return (((*(int *)&(status)) >> 8) & 0x000000ff);
 	if (((*(int *)&(status)) & 0177) != 0177 \
 	&& ((*(int *)&(status)) & 0177) != 0)
-			return (((*(int *)&(status)) & 0177));
+		return (((*(int *)&(status)) & 0177));
 	return (-1);
 }
 
-int		execute(t_ast *ast, t_ast *head, t_env **env)
+int	execute(t_ast *ast, t_ast *head, t_env **env)
 {
 	int		fd[2];
 	pid_t	lchild_pid;

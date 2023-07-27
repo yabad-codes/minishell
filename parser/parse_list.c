@@ -6,12 +6,11 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 16:02:48 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/04 22:02:50 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/27 20:59:59 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/parser.h"
+#include "minishell.h"
 
 t_cmd	*create_cmd(char **cmd_args, t_redir *redir)
 {

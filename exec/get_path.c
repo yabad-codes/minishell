@@ -6,11 +6,11 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 10:14:42 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/23 09:53:03 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/27 20:58:37 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 char	*get_correct_path(char **path_env, char *cmd)
 {

@@ -6,11 +6,11 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 09:44:15 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/25 10:34:50 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/27 20:58:14 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 static void	print_env(t_env *env)
 {

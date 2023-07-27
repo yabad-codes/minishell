@@ -6,12 +6,11 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:02:19 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/25 15:13:42 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/27 17:15:46 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/lexer.h"
+#include "minishell.h"
 
 void	toggle_quote(char c, t_state *toggle)
 {

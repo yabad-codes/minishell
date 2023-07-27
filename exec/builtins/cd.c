@@ -6,11 +6,11 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 09:42:32 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/25 11:39:48 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/27 20:57:29 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void	edit_env_vars(t_env **env, char buf[])
 {

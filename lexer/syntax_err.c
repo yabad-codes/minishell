@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_err.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 09:46:08 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/25 13:20:38 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:16:09 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/lexer.h"
+#include "minishell.h"
 
 typedef enum e_error_code
 {

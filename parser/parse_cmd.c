@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 18:09:52 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/25 20:41:50 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/27 20:59:51 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/parser.h"
+#include "minishell.h"
 
 t_token	*traverse_to_right_pos(t_token *token_head, int *tracker)
 {
@@ -70,17 +69,16 @@ t_ast	*build_cmd(char **cmd_arg, t_redir *redir_list)
 
 t_token	*expand(t_token *token_head)
 {
-	t_token	*new;
 	t_token	*tmp;
 	t_token	*prev_tok;
 	char	*rm_quotes;
 
-	new = NULL;
 	tmp = token_head;
 	prev_tok = NULL;
 	while (token_head)
 	{
-		token_head->token = expand_var(tmp, token_head->expand, token_head->token);
+		token_head->token = expand_var(tmp, token_head->expand, \
+			token_head->token);
 		rm_quotes = remove_quotes(tmp, token_head->token, token_head, prev_tok);
 		free(token_head->token);
 		token_head->token = rm_quotes;

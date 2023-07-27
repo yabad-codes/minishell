@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:21:10 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/26 20:15:29 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/27 17:24:14 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,8 @@ void	delete_node(t_node *node);
  * @param token_head
  * @param is_expand
  * @param token_value
- * @return The value of the variable if EXPANDABLE, or the variable itself if not.
+ * @return The value of the variable if EXPANDABLE,
+ * or the variable itself if not.
 */
 char	*expand_var(t_token *token_head, t_expand is_expand, char *token_val);
 
@@ -144,7 +145,7 @@ t_ast	*parse_cmd(t_token *token_head, int *tracker);
  * @param new		the new command argument to add
 */
 void	add_cmd_arg(char ***cmd_arg, char *new);
-void	print_cmd_arg(char **cmd_arg);
 void	add_exit_code(t_token *token_head, char **token_val, \
 					char **val);
+void	free_ast(t_ast *ast);
 #endif

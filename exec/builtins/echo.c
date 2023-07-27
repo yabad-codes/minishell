@@ -6,11 +6,11 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 19:36:29 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/20 10:28:49 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/27 20:58:17 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 bool	is_valid_option(char *cmd_arg)
 {

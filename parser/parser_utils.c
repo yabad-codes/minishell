@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 18:21:42 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/24 16:11:15 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/27 21:00:03 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/parser.h"
+#include "minishell.h"
 
-typedef struct	s_quote_vars
+typedef struct s_quote_vars
 {
 	char	*val;
 	char	*dst;
@@ -41,7 +40,8 @@ char	*ft_charjoin(char *str, char c)
 	return (res);
 }
 
-bool	quotes_checks(char token_c, t_quote_vars *vars, t_token *token, t_token *prev_tok)
+bool	quotes_checks(char token_c, t_quote_vars *vars, \
+			t_token *token, t_token *prev_tok)
 {
 	if (token_c == '\'' && !vars->in_double_quotes)
 	{
@@ -73,10 +73,10 @@ char	*remove_quotes(t_token *token_head, char *token_value, \
 	vars.in_double_quotes = 0;
 	while (*token_value)
 	{
-		if (quotes_checks(*token_value, &vars, token, prev_tok)) 
+		if (quotes_checks(*token_value, &vars, token, prev_tok))
 		{
 			token_value++;
-			continue;
+			continue ;
 		}
 		*vars.dst++ = *token_value++;
 	}
