@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/26 11:51:22 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/27 10:58:00 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,14 @@ void	conductor(char *input, t_env **env)
 		ast = parser(tokens);
 		if (!ast)
 			return ;
-		handling_herdocs(ast, &num);
 		signal(SIGINT, SIG_IGN);
-		g_data.exit_status = execute(ast, ast, env);
+		handling_herdocs(ast, &num);
+		if (g_data.exit_status != 130 && g_data.exit_status != 131)
+		{
+			g_data.exit_status = execute(ast, ast, env);
+			return ;
+		}
+		g_data.exit_status = 0;
 	}
 	return ;
 }
@@ -100,5 +105,5 @@ int	main(int ac, char **av, char **envp)
 		}
 		free(v.input);
 	}
-	return (0);
+	return (g_data.exit_status);
 }

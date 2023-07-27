@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:21:10 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/25 17:02:31 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/26 20:15:29 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_redir
 {
 	t_token_type	type;
 	char			*file;
-	char			*herdoc_file;
+	int				fd[2];
 	bool			hrd_quotes;
 	struct s_redir	*next;
 }	t_redir;

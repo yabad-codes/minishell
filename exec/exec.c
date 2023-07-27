@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 12:13:34 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/26 12:30:19 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/26 20:08:25 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,31 +66,33 @@ int	execute_cmd(t_cmd *cmd, t_env **env)
 			execute_builtin(cmd, builtin, env);
 			return (0);
 		}
+		id = fork();
+		if (id == 0)
+		{
+			signal(SIGQUIT, SIG_DFL);
+			signal(SIGINT, child_handler);
+			execve(get_path(cmd->cmd_args[0], *env), cmd->cmd_args, cnv_to_envp(*env));
+			exec_error(strerror(errno), cmd);	
+		}
+		else if (id > 0)
+		{
+			waitpid(id, &status, 0);
+			if (((*(int *)&(status)) & 0177) == 0)
+				return (((*(int *)&(status)) >> 8) & 0x000000ff);
+			if (((*(int *)&(status)) & 0177) != 0177 \
+			&& ((*(int *)&(status)) & 0177) != 0)
+				return (128 + ((*(int *)&(status)) & 0177));
+		}
+		else
+			exit(EXIT_FAILURE);
 	}
-	id = fork();
-	if (id == 0)
-	{
-		signal(SIGINT, child_handler);
-		execve(get_path(cmd->cmd_args[0], *env), cmd->cmd_args, cnv_to_envp(*env));
-		exec_error(strerror(errno), cmd);
-	}
-	else if (id > 0)
-	{
-		waitpid(id, &status, 0);
-		if (((*(int *)&(status)) & 0177) == 0)
-			return (((*(int *)&(status)) >> 8) & 0x000000ff);
-		if (((*(int *)&(status)) & 0177) != 0177 \
-		&& ((*(int *)&(status)) & 0177) != 0)
-			return (128 + ((*(int *)&(status)) & 0177));
-	}
-	else
-		exit(EXIT_FAILURE);
 	return (-1);
 }
 
 void	execute_left(t_ast *ast, t_ast *head, int *fd, t_env **env)
 {
 	signal(SIGINT, child_handler);
+	signal(SIGQUIT, SIG_DFL);
 	close(fd[0]);
 	dup2(fd[1], STDOUT_FILENO);
 	execute(ast->left, head, env);
@@ -102,6 +104,7 @@ void	execute_right(t_ast *ast, t_ast *head, int *fd, t_env **env)
 {
 	int	status;
 
+	signal(SIGQUIT, SIG_DFL);
 	signal(SIGINT, child_handler);
 	close(fd[1]);
 	dup2(fd[0], STDIN_FILENO);
@@ -126,7 +129,6 @@ int	close_fds_and_wait_for_childs(int *fd, \
 			return (((*(int *)&(status)) & 0177));
 	return (-1);
 }
-
 
 int		execute(t_ast *ast, t_ast *head, t_env **env)
 {

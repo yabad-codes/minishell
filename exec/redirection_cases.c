@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_cases.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:47:55 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/23 00:35:23 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/07/27 09:52:20 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,13 @@ void	in_redir(char *filename, t_redir_error *error, int *fd_in)
 	}
 }
 
-void	herdoc_redir(char *file, \
+void	herdoc_redir(int read_end, \
 t_redir_error *error, int *fd_in)
 {
 	if (*fd_in != -1)
 		close(*fd_in);
-	*fd_in = open(file, O_CREAT | O_RDWR, 0644);
-	if (*fd_in == -1)
-	{
-		printf("Error opening the tmpfile\n");
-		error->is_error = true;
-	}
+	if (error->is_error == false)
+		*fd_in = read_end;
 }
 
 void	launch_redirections(t_redir *list, t_redir_error *error, t_fds *fds)
@@ -85,5 +81,5 @@ void	launch_redirections(t_redir *list, t_redir_error *error, t_fds *fds)
 	else if (list->type == APPEND)
 		append_redir(list->file, error, &(fds->fd_out));
 	else
-		herdoc_redir(list->herdoc_file, error, &(fds->fd_in));
+		herdoc_redir(list->fd[0], error, &(fds->fd_in));
 }

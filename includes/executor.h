@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 10:43:58 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/24 12:34:31 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/27 09:53:06 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	handling_redirections(t_redir *list, t_redir_error *error);
 void	out_redir(char *filename, t_redir_error *error, int *fd_out);
 void	append_redir(char *filename, t_redir_error *error, int *fd_out);
 void	in_redir(char *filename, t_redir_error *error, int *fd_in);
-void	herdoc_redir(char *file, \
+void	herdoc_redir(int read_end, \
 t_redir_error *error, int *fd_in);
 void	error_file_message(char *filename, char *error_message);
 void	print_error(char *cmd, char *filename, char *error_message);
