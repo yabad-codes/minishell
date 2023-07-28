@@ -42,6 +42,7 @@ void	extract_cmd(t_token *token, t_redir **redir_list, \
 		{
 			add_redir(redir_list, new_redir(token->type, token->next->token, \
 			token->next->hrd_quotes));
+			free(token->token);
 			token = token->next;
 			(*tracker)++;
 			if (!token->next)
@@ -60,7 +61,7 @@ t_ast	*build_cmd(char **cmd_arg, t_redir *redir_list)
 
 	ast = (t_ast *)malloc(sizeof(t_ast));
 	if (!ast)
-		return (NULL);
+		exit(EXIT_FAILURE);
 	ast->node = create_node(create_cmd(cmd_arg, redir_list), NODE_CMD);
 	ast->left = NULL;
 	ast->right = NULL;

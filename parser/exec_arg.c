@@ -35,8 +35,14 @@ void	add_cmd_arg(char ***cmd_arg, char *new)
 	new_cmd_arg = (char **)malloc(sizeof(char *) * (i + 2));
 	if (!new_cmd_arg)
 		exit(EXIT_FAILURE);
-	ft_memcpy(new_cmd_arg, *cmd_arg, sizeof(char *) * i);
-	new_cmd_arg[i] = ft_strdup(new);
+	i = 0;
+	if (tmp)
+	{
+		i = -1;
+		while (tmp[++i])
+			new_cmd_arg[i] = tmp[i];
+	}
+	new_cmd_arg[i] = new;
 	new_cmd_arg[i + 1] = NULL;
 	free(tmp);
 	*cmd_arg = new_cmd_arg;

@@ -79,6 +79,12 @@ void	delete_token(t_token *token);
 void	clear_tokens(t_token *tokens);
 
 /**
+ * @brief Clear the list of tokens without values
+ * @param tokens The token list
+*/
+void	clear_tokens_without_values(t_token *tokens);
+
+/**
  * @brief Check if a given set is a delimiter
  * @param c1 first character of the set
  * @param c2 second character of the set

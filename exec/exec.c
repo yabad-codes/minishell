@@ -45,7 +45,7 @@ int	execute_cmd(t_cmd *cmd, t_env **env)
 		else
 			exit(EXIT_FAILURE);
 	}
-	return (-1);
+	return (g_data.exit_status);
 }
 
 void	execute_left(t_ast *ast, t_ast *head, int *fd, t_env **env)

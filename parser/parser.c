@@ -30,6 +30,7 @@ t_ast	*build_ast(t_token *token_head, t_token *token_pipe, int *tracker_cmd)
 	ast = NULL;
 	if (token_pipe)
 	{
+		free(token_pipe->token);
 		ast = malloc(sizeof(t_ast));
 		if (!ast)
 			free_tokens_and_exit(token_head);
@@ -53,5 +54,6 @@ t_ast	*parser(t_token *tokens)
 	tracker_cmd = 0;
 	tokens = expand(tokens);
 	ast = build_ast(tokens, search_pipe(tokens), &tracker_cmd);
+	clear_tokens_without_values(tokens);
 	return (ast);
 }

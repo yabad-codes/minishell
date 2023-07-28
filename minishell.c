@@ -38,13 +38,10 @@ void	conductor(char *input, t_env **env)
 		signal(SIGINT, SIG_IGN);
 		handling_herdocs(ast, &num);
 		if (g_data.atomic == false)
-		{
 			g_data.exit_status = execute(ast, ast, env);
-			return ;
-		}
 		g_data.atomic = false;
+		free_ast(ast);
 	}
-	free_ast(ast);
 	return ;
 }
 

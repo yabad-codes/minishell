@@ -63,7 +63,7 @@ void	child_writing_in_pipe(t_redir *redir, t_proc proc, int id)
 		if (((*(int *)&(status)) & 0177) != 0177 \
 			&& ((*(int *)&(status)) & 0177) != 0)
 		{
-			g_data.exit_status = 1;
+			g_data.exit_status = 128 + ((*(int *)&(status)) & 0177);
 			g_data.atomic = true;
 		}
 	}
@@ -114,10 +114,7 @@ void	handling_redirections(t_redir *list, t_redir_error *error)
 	fds.fd_out = -1;
 	error->is_error = false;
 	while (list)
-	{
-		launch_redirections(list, error, &fds);
-		list = list->next;
-	}
+		(launch_redirections(list, error, &fds), list = list->next);
 	if (error->is_error == false)
 	{
 		if (fds.fd_in != -1)
@@ -130,6 +127,7 @@ void	handling_redirections(t_redir *list, t_redir_error *error)
 			dup2(fds.fd_out, STDOUT_FILENO);
 			close(fds.fd_out);
 		}
+		g_data.exit_status = 0;
 		return ;
 	}
 	error_file_message(error->filename, error->error_message);

@@ -39,9 +39,7 @@ char	**cnv_to_envp(t_env *env)
 {
 	char	**envp;
 	int		i;
-	t_env	*tmp;
 
-	tmp = env;
 	envp = malloc(sizeof(char *) * (len_envp(env) + 1));
 	if (!envp)
 		exit(EXIT_FAILURE);

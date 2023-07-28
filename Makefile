@@ -49,7 +49,7 @@ all: $(NAME)
 	@$(CC) -I $(INCLUDES) $(CFLAGS) -I $(READLINE)/include/readline -c $< -o $@
 
 $(NAME): $(OBJS) $(HEADER)
-	@$(CC) $(CFLAGS) $(LIBFT_LIB) -I $(READLINE)/include/readline $(OBJS) -lreadline -L $(READLINE)/lib -o $(NAME)
+	@$(CC) $(CFLAGS) -I $(READLINE)/include/readline $(OBJS) -lreadline -L $(READLINE)/lib $(LIBFT_LIB) -o $(NAME)
 
 $(LIBFT_LIB):
 	@$(MAKE) bonus -C $(LIBFT_DIR)

@@ -65,3 +65,15 @@ void	clear_tokens(t_token *tokens)
 		delete_token(temp);
 	}
 }
+
+void	clear_tokens_without_values(t_token *tokens)
+{
+	t_token	*temp;
+
+	while (tokens)
+	{
+		temp = tokens;
+		tokens = tokens->next;
+		free(temp);
+	}
+}
