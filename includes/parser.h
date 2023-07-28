@@ -145,6 +145,7 @@ t_ast	*parse_cmd(t_token *token_head, int *tracker);
  * @param new		the new command argument to add
 */
 void	add_cmd_arg(char ***cmd_arg, char *new);
+t_token	*expand(t_token *token_head);
 void	add_exit_code(t_token *token_head, char **token_val, \
 					char **val);
 void	free_ast(t_ast *ast);

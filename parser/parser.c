@@ -51,6 +51,7 @@ t_ast	*parser(t_token *tokens)
 
 	ast = NULL;
 	tracker_cmd = 0;
+	tokens = expand(tokens);
 	ast = build_ast(tokens, search_pipe(tokens), &tracker_cmd);
 	return (ast);
 }

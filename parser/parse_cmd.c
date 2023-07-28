@@ -96,7 +96,6 @@ t_ast	*parse_cmd(t_token *token_head, int *tracker)
 
 	redir_list = NULL;
 	cmd_arg = NULL;
-	token_head = expand(token_head);
 	token = traverse_to_right_pos(token_head, tracker);
 	extract_cmd(token, &redir_list, &cmd_arg, tracker);
 	return (build_cmd(cmd_arg, redir_list));

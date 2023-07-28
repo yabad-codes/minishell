@@ -25,7 +25,7 @@ int	execute_cmd(t_cmd *cmd, t_env **env)
 	t_exec_vars	v;
 
 	handling_redirections(cmd->redir, &(v.is_redir_error));
-	if (cmd->cmd_args)
+	if (cmd->cmd_args && v.is_redir_error.is_error == false)
 	{
 		v.builtin = is_builtin(cmd->cmd_args[0]);
 		if (v.builtin)
