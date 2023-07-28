@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 09:42:32 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/27 20:57:29 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/28 08:09:00 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	edit_env_vars(t_env **env, char buf[])
 {
-	modify_key(env, "OLDPWD", ft_strdup(buf));
+	modify_key(env, ft_strdup("OLDPWD"), ft_strdup(buf));
 	getcwd(buf, PATH_MAX);
-	modify_key(env, "PWD", ft_strdup(buf));
+	modify_key(env, ft_strdup("PWD"), ft_strdup(buf));
 }
 
 static int	cd_home(t_env **env)

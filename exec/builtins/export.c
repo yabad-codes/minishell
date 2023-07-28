@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 09:45:41 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/27 20:58:07 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/28 07:44:54 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ void	ft_export(t_cmd *cmd, t_env **env)
 		print_declare_vars(*env);
 	while (cmd->cmd_args[i])
 	{
-		if (!is_valid_identifier(cmd->cmd_args[i]))
+		pos = 0;
+		key = extract_key(cmd->cmd_args[i], &pos);
+		if (!is_valid_identifier(key))
 		{
 			print_error("export", cmd->cmd_args[i], "not a valid identifier");
 			i++;
 			continue ;
 		}
-		pos = 0;
-		key = extract_key(cmd->cmd_args[i], &pos);
 		value = extract_value(cmd->cmd_args[i], &pos);
 		modify_key(env, key, value);
 		i++;
