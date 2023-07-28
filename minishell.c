@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/27 17:07:40 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/28 10:23:20 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static char	*custom_prompt(char *user)
 	return (prompt);
 }
 
-int	main(int ac, char **av, char **envp)
+int	func(int ac, char **av, char **envp)
 {
 	t_vars	v;
 
@@ -89,5 +89,7 @@ int	main(int ac, char **av, char **envp)
 		}
 		free(v.input);
 	}
+	clear_env(g_data.env);
+	free(v.prompt);
 	return (g_data.exit_status);
 }
