@@ -65,7 +65,7 @@ static char	*custom_prompt(char *user)
 	return (prompt);
 }
 
-int	func(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
 	t_vars	v;
 
