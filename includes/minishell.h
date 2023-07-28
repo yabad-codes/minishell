@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:02:21 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/27 18:01:55 by yabad            ###   ########.fr       */
+/*   Updated: 2023/07/28 09:12:17 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ void	modify_key(t_env **env, char *key, char *value);
 void	del_key(t_env *env, void (*del)(void *));
 void	add_key(t_env **env, t_env *new);
 t_env	*new_key(char *key, char *value);
+void	clear_env(t_env *env);
 
 #endif
