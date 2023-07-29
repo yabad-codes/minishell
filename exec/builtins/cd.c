@@ -65,8 +65,7 @@ void	ft_cd(t_cmd *cmd, t_env **env)
 {
 	char	buf[PATH_MAX];
 
-	if (!cmd->cmd_args[1] || \
-		!ft_strncmp("--", cmd->cmd_args[1], \
+	if (!cmd->cmd_args[1] || !ft_strncmp("--", cmd->cmd_args[1], \
 			ft_max(2, ft_strlen(cmd->cmd_args[1]))) || \
 		!ft_strncmp("~", cmd->cmd_args[1], ft_strlen(cmd->cmd_args[1])))
 	{
