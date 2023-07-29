@@ -82,6 +82,7 @@ void	ft_cd(t_cmd *cmd, t_env **env)
 		!ft_strncmp("..", cmd->cmd_args[1], \
 			ft_max(2, ft_strlen(cmd->cmd_args[1]))))
 		edit_env_vars(env, buf);
+	getcwd(buf, PATH_MAX);
 	if (chdir(cmd->cmd_args[1]))
 	{
 		print_error("cd", cmd->cmd_args[1], strerror(errno));
