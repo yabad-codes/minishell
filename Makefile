@@ -36,23 +36,22 @@ SRC = 	minishell.c \
 		env/env.c \
 		env/env_utils.c 
 
-
-HEADER = $(INCLUDES)/minishell.h
-LIBFT_DIR = ./Libft
-LIBFT_LIB = ./Libft/libft.a
+LIBFT_DIR = ./Libft/
+LIBFT_LIB = $(LIBFT_DIR)/libft.a
 READLINE = $(shell brew --prefix readline)
 OBJS = $(SRC:.c=.o)
 
-all: $(NAME)
+all: $(LIBFT_LIB) $(NAME)
 
-%.o: %.c $(LIBFT_LIB) $(HEADER)
+%.o: %.c $(LIBFT_LIB)
 	@$(CC) -I $(INCLUDES) $(CFLAGS) -I $(READLINE)/include/readline -c $< -o $@
 
-$(NAME): $(OBJS) $(HEADER)
+$(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) -I $(READLINE)/include/readline $(OBJS) -lreadline -L $(READLINE)/lib $(LIBFT_LIB) -o $(NAME)
 
 $(LIBFT_LIB):
-	@$(MAKE) bonus -C $(LIBFT_DIR)
+	@git submodule update --init --recursive
+	@$(MAKE) -C $(LIBFT_DIR)
 
 clean:
 	@rm -f $(OBJS)
