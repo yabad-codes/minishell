@@ -14,7 +14,7 @@
 
 bool	is_valid_identifier(char *var)
 {
-	if (!(ft_isalpha(var[0]) || var[0] == '_'))
+	if (!(ft_isalpha(*var) || *var == '_' || *var == '\0'))
 		return (false);
 	var++;
 	while (*var)

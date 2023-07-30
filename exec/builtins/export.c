@@ -53,7 +53,7 @@ void	ft_export(t_cmd *cmd, t_env **env)
 	i = 1;
 	if (!cmd || !cmd->cmd_args || !env)
 		return ;
-	if (!cmd->cmd_args[1])
+	if (!cmd->cmd_args[1] || cmd->cmd_args[1][0] == '\0')
 		print_declare_vars(*env);
 	while (cmd->cmd_args[i])
 	{
