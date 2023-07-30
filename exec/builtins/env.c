@@ -31,6 +31,7 @@ void	ft_env(t_cmd *cmd, t_env *env)
 	if (cmd->cmd_args[1])
 	{
 		printf("env: %s: No such file or directory\n", cmd->cmd_args[1]);
+		g_data.exit_status = 127;
 		return ;
 	}
 	print_env(env);
