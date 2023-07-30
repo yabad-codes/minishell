@@ -93,6 +93,8 @@ t_token	*get_tokens(char *input)
 	if (token_exist(vars.token))
 		add_token(&vars.tokens, new_token(vars.token, WORD, \
 			is_expandable(vars.is_expandable, vars.prev_delim)));
+	else
+		free(vars.token);
 	return (vars.tokens);
 }
 

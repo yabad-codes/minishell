@@ -84,5 +84,7 @@ int	check_syntax_error(t_token *tokens)
 
 	error_code = get_error_code(tokens);
 	error_message(error_code);
+	if (error_code)
+		clear_tokens(tokens);
 	return (error_code == NO_ERROR);
 }
