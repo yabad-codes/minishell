@@ -20,6 +20,7 @@ void	handler(int sig)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		g_data.exit_status = 1;
 	}
 }
 
