@@ -29,7 +29,7 @@ int	execute_cmd(t_cmd *cmd, t_env **env)
 	{
 		v.builtin = is_builtin(cmd->cmd_args[0]);
 		if (v.builtin)
-			return (execute_builtin(cmd, v.builtin, env), 0);
+			return (execute_builtin(cmd, v.builtin, env), g_data.exit_status);
 		v.id = fork();
 		if (v.id == 0)
 			execute_cmd_child(cmd, env);

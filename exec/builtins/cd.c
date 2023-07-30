@@ -19,40 +19,19 @@ void	edit_env_vars(t_env **env, char buf[])
 	modify_key(env, ft_strdup("PWD"), ft_strdup(buf));
 }
 
-static int	cd_home(t_env **env)
+static int	cd_home(t_env **env, char *env_var, char *err)
 {
 	char	*home;
 	char	buf[PATH_MAX];
 
-	home = get_value(*env, "HOME");
+	home = get_value(*env, env_var);
 	if (!home)
 	{
-		error_file_message("cd", "HOME not set");
+		error_file_message("cd", err);
 		return (1);
 	}
 	getcwd(buf, PATH_MAX);
 	if (chdir(home))
-	{
-		perror("cd");
-		return (1);
-	}
-	edit_env_vars(env, buf);
-	return (0);
-}
-
-static int	cd_old(t_env **env)
-{
-	char	*old;
-	char	buf[PATH_MAX];
-
-	old = get_value(*env, "OLDPWD");
-	if (!old)
-	{
-		error_file_message("cd", "OLDPWD not set");
-		return (1);
-	}
-	getcwd(buf, PATH_MAX);
-	if (chdir(old))
 	{
 		perror("cd");
 		return (1);
@@ -68,24 +47,21 @@ void	ft_cd(t_cmd *cmd, t_env **env)
 	if (!cmd->cmd_args[1] || !ft_strncmp("--", cmd->cmd_args[1], \
 			ft_max(2, ft_strlen(cmd->cmd_args[1]))) || \
 		!ft_strncmp("~", cmd->cmd_args[1], ft_strlen(cmd->cmd_args[1])))
-	{
-		cd_home(env);
-		return ;
-	}
-	if (!ft_strncmp("-", cmd->cmd_args[1], ft_strlen(cmd->cmd_args[1])))
-	{
-		cd_old(env);
-		return ;
-	}
-	if (!ft_strncmp(".", cmd->cmd_args[1], ft_strlen(cmd->cmd_args[1])) || \
+		g_data.exit_status = cd_home(env, "HOME", "HOME not set");
+	else if (!ft_strncmp("-", cmd->cmd_args[1], ft_strlen(cmd->cmd_args[1])))
+		g_data.exit_status = cd_home(env, "OLDPWD", "OLDPWD not set");
+	else if (!ft_strncmp(".", cmd->cmd_args[1], ft_strlen(cmd->cmd_args[1])) || \
 		!ft_strncmp("..", cmd->cmd_args[1], \
 			ft_max(2, ft_strlen(cmd->cmd_args[1]))))
 		edit_env_vars(env, buf);
-	getcwd(buf, PATH_MAX);
-	if (chdir(cmd->cmd_args[1]))
+	else
 	{
-		print_error("cd", cmd->cmd_args[1], strerror(errno));
-		return ;
+		getcwd(buf, PATH_MAX);
+		if (chdir(cmd->cmd_args[1]))
+		{
+			print_error("cd", cmd->cmd_args[1], strerror(errno));
+			return ;
+		}
+		edit_env_vars(env, buf);
 	}
-	edit_env_vars(env, buf);
 }
