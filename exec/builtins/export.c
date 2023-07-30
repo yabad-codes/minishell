@@ -62,6 +62,7 @@ void	ft_export(t_cmd *cmd, t_env **env)
 		if (!is_valid_identifier(key))
 		{
 			print_error("export", cmd->cmd_args[i], "not a valid identifier");
+			free(key);
 			i++;
 			continue ;
 		}
