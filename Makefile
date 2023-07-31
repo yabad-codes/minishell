@@ -48,6 +48,7 @@ all: $(LIBFT_LIB) $(NAME)
 
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) -I $(READLINE)/include/readline $(OBJS) -lreadline -L $(READLINE)/lib $(LIBFT_LIB) -o $(NAME)
+	@echo "\033[32mPROJECT COMPILED SUCCESSFULY\033[0m"
 
 $(LIBFT_LIB):
 	@git submodule update --init --recursive
