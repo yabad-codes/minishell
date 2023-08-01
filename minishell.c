@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/28 10:23:20 by yabad            ###   ########.fr       */
+/*   Updated: 2023/08/01 11:44:21 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ int	main(int ac, char **av, char **envp)
 {
 	t_vars	v;
 
-	(void)ac, (void)av;
-	g_data.env = get_env(envp);
+	(void)ac, (void)av, (void)envp;
+	g_data.env = copy_env(envp);
 	v.prompt = custom_prompt(getenv("USER"));
 	v.savestdout = dup(STDOUT_FILENO);
 	v.savestdin = dup(STDIN_FILENO);

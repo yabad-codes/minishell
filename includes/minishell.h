@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:02:21 by yabad             #+#    #+#             */
-/*   Updated: 2023/07/28 09:12:17 by yabad            ###   ########.fr       */
+/*   Updated: 2023/08/01 11:44:15 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_ast	*parser(t_token *tokens);
 void	free_tokens_and_exit(t_token *token_head);
 void	free_ast_and_exit(t_ast *ast);
 
-t_env	*get_env(char **envp);
+t_env	*copy_env(char **envp);
 char	*get_value(t_env *env, char *key);
 void	modify_key(t_env **env, char *key, char *value);
 void	del_key(t_env *env, void (*del)(void *));
