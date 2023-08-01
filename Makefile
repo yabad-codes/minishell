@@ -51,17 +51,14 @@ $(NAME): $(OBJS)
 	@echo "\033[32mPROJECT COMPILED SUCCESSFULY\033[0m"
 
 $(LIBFT_LIB):
-	@git submodule update --init --recursive
 	@$(MAKE) -C $(LIBFT_DIR)
 
 clean:
 	@rm -f $(OBJS)
-	@git submodule update --init --recursive
 	@$(MAKE) clean -C $(LIBFT_DIR)
 
 fclean: clean
 	@rm -f $(NAME)
-	@git submodule update --init --recursive
 	@$(MAKE) fclean -C $(LIBFT_DIR)
 
 re: fclean all
