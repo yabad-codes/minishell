@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/08/01 11:44:21 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/08/01 17:12:06 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	conductor(char *input, t_env **env)
 		g_data.atomic = false;
 		free_ast(ast);
 	}
-	return ;
 }
 
 static char	*custom_prompt(char *user)
