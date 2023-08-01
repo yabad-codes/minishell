@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/08/01 17:12:06 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/08/01 17:13:50 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,16 @@ void	conductor(char *input, t_env **env)
 {
 	t_token	*tokens;
 	t_ast	*ast;
-	int		num;
 
 	ast = NULL;
 	tokens = lexer(input);
-	num = 0;
 	if (check_syntax_error(tokens))
 	{
 		ast = parser(tokens);
 		if (!ast)
 			return ;
 		signal(SIGINT, SIG_IGN);
-		handling_herdocs(ast, &num);
+		handling_herdocs(ast);
 		if (g_data.atomic == false)
 			g_data.exit_status = execute(ast, ast, env);
 		g_data.atomic = false;

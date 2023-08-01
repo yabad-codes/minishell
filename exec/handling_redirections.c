@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handling_redirections.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:13:03 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/27 19:12:50 by yabad            ###   ########.fr       */
+/*   Updated: 2023/08/01 17:13:38 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	open_pipe_and_write(t_redir *redir)
 	}
 }
 
-void	handling_herdocs(t_ast *ast, int *num)
+void	handling_herdocs(t_ast *ast)
 {
 	t_redir	*redir;
 
@@ -101,8 +101,8 @@ void	handling_herdocs(t_ast *ast, int *num)
 	}
 	if (ast->node->type == NODE_PIPE)
 	{
-		handling_herdocs(ast->left, num);
-		handling_herdocs(ast->right, num);
+		handling_herdocs(ast->left);
+		handling_herdocs(ast->right);
 	}
 }
 
