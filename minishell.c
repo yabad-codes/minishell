@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:01:45 by yabad             #+#    #+#             */
-/*   Updated: 2023/08/01 17:13:50 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/08/01 18:15:06 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,27 @@ typedef struct s_mini_vars
 	int		savestdout;
 	int		savestdin;
 }	t_vars;
+
+void	close_unused_hrdoc_pipes(t_ast *ast)
+{
+	t_redir	*redir;
+
+	if (ast->node->type == NODE_CMD)
+	{
+		redir = ast->node->cmd->redir;
+		while (redir)
+		{
+			if (redir->type == HRDOC)
+				close(redir->fd[0]);
+			redir = redir->next;
+		}
+	}
+	if (ast->node->type == NODE_PIPE)
+	{
+		close_unused_hrdoc_pipes(ast->left);
+		close_unused_hrdoc_pipes(ast->right);
+	}
+}
 
 void	conductor(char *input, t_env **env)
 {
@@ -38,6 +59,7 @@ void	conductor(char *input, t_env **env)
 		if (g_data.atomic == false)
 			g_data.exit_status = execute(ast, ast, env);
 		g_data.atomic = false;
+		close_unused_hrdoc_pipes(ast);
 		free_ast(ast);
 	}
 }

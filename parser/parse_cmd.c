@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 18:09:52 by ael-maar          #+#    #+#             */
-/*   Updated: 2023/07/27 20:59:51 by yabad            ###   ########.fr       */
+/*   Updated: 2023/08/01 18:14:13 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,18 @@ t_token	*traverse_to_right_pos(t_token *token_head, int *tracker)
 void	extract_cmd(t_token *token, t_redir **redir_list, \
 						char ***cmd_arg, int *tracker)
 {
+	t_redir	*redir;
+
 	while (token && token->type != PIPE)
 	{
 		if (token->type == IN || token->type == OUT || \
 			token->type == APPEND || token->type == HRDOC)
 		{
-			add_redir(redir_list, new_redir(token->type, token->next->token, \
-			token->next->hrd_quotes));
+			redir = new_redir(token->type, token->next->token, \
+			token->next->hrd_quotes);
+			if (redir->type == HRDOC)
+				redir->fd[0] = -1;
+			add_redir(redir_list, redir);
 			free(token->token);
 			token = token->next;
 			(*tracker)++;
