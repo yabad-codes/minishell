@@ -6,7 +6,7 @@
 /*   By: ael-maar <ael-maar@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:02:21 by yabad             #+#    #+#             */
-/*   Updated: 2023/08/01 11:44:15 by ael-maar         ###   ########.fr       */
+/*   Updated: 2023/08/01 17:02:19 by ael-maar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include "lexer.h"
 # include "parser.h"
 # include "executor.h"
-# include "../Libft/libft.h"
+# include "../libft/libft.h"
 
 # define ANSI_COLOR_SKY_BLUE   "\033[1;36m"
 # define ANSI_COLOR_RESET      "\x1b[0m"
