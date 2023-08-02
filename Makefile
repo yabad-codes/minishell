@@ -30,6 +30,7 @@ SRC = 	minishell.c \
 		exec/builtins/cd.c \
 		exec/builtins/env.c \
 		exec/builtins/exit.c \
+		exec/builtins/exit_utils.c \
 		exec/builtins/export.c \
 		exec/builtins/unset.c \
 		exec/signal.c \

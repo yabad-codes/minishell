@@ -54,6 +54,7 @@ typedef struct s_fds
 int				execute(t_ast *ast, t_ast *head, t_env **env);
 char			*get_path(char *cmd, t_env *env);
 t_builtin_type	is_builtin(char *cmd);
+bool			is_digit(char *str);
 void			execute_builtin(t_cmd *cmd, t_builtin_type kind, t_env **env);
 t_env			*new_key(char *key, char *value);
 void			add_key(t_env **env, t_env *new);
