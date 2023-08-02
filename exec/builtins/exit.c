@@ -12,19 +12,6 @@
 
 #include "minishell.h"
 
-static bool	is_digit(char *str)
-{
-	if (*str == '-' || *str == '+')
-		str++;
-	while (*str)
-	{
-		if (!(*str <= '9' && *str >= '0'))
-			return (false);
-		str++;
-	}
-	return (true);
-}
-
 static int	get_args_num(t_cmd *cmd)
 {
 	int	i;
@@ -37,11 +24,11 @@ static int	get_args_num(t_cmd *cmd)
 
 void	ft_exit(t_cmd *cmd)
 {
+	ft_putstr_fd("exit\n", 2);
 	if (cmd->cmd_args[1] && !is_digit(cmd->cmd_args[1]))
 	{
-		ft_putstr_fd("exit\n", 2);
 		print_error("exit", cmd->cmd_args[1], "numeric argument required");
-		exit(2);
+		exit(255);
 	}
 	if (get_args_num(cmd) > 1)
 	{
