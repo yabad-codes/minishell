@@ -37,6 +37,8 @@ static int	cd_home(t_env **env, char *env_var, char *err)
 		return (1);
 	}
 	edit_env_vars(env, buf);
+	if (!ft_strncmp("OLDPWD", env_var, ft_strlen(env_var)))
+		printf("%s\n", buf);
 	return (0);
 }
 
@@ -50,10 +52,6 @@ void	ft_cd(t_cmd *cmd, t_env **env)
 		g_data.exit_status = cd_home(env, "HOME", "HOME not set");
 	else if (!ft_strncmp("-", cmd->cmd_args[1], ft_strlen(cmd->cmd_args[1])))
 		g_data.exit_status = cd_home(env, "OLDPWD", "OLDPWD not set");
-	else if (!ft_strncmp(".", cmd->cmd_args[1], ft_strlen(cmd->cmd_args[1])) || \
-		!ft_strncmp("..", cmd->cmd_args[1], \
-			ft_max(2, ft_strlen(cmd->cmd_args[1]))))
-		edit_env_vars(env, buf);
 	else
 	{
 		getcwd(buf, PATH_MAX);
