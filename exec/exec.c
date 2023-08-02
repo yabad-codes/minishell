@@ -85,7 +85,7 @@ int	close_fds_and_wait_for_childs(int *fd, \
 		return (((*(int *)&(status)) >> 8) & 0x000000ff);
 	if (((*(int *)&(status)) & 0177) != 0177 \
 	&& ((*(int *)&(status)) & 0177) != 0)
-		return (((*(int *)&(status)) & 0177));
+		return (128 + ((*(int *)&(status)) & 0177));
 	return (-1);
 }
 
