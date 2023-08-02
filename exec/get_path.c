@@ -48,7 +48,7 @@ char	*get_path(char *cmd, t_env *env)
 		return (cmd);
 	path_var = get_value(env, "PATH");
 	if (!path_var)
-		return (NULL);
+		return (ft_strjoin("./", cmd));
 	path_env = ft_split(path_var, ':');
 	correct_path = get_correct_path(path_env, cmd);
 	return (correct_path);
