@@ -20,7 +20,8 @@ static char	*get_env_val(t_token *token_head, char *str)
 
 	env_len = 0;
 	while ((str[env_len] >= 'A' && str[env_len] <= 'Z') \
-	|| (str[env_len] >= 'a' && str[env_len] <= 'z') || str[env_len] == '_')
+	|| (str[env_len] >= 'a' && str[env_len] <= 'z') \
+	|| (str[env_len] >= '0' && str[env_len] <= '9') || str[env_len] == '_')
 		env_len++;
 	locate_env = ft_substr(str, 0, env_len);
 	if (!locate_env)
@@ -42,7 +43,8 @@ static bool	detect_env_and_join(t_token *token_head, char **tok_val, \
 		temp = *val;
 		(*tok_val)++;
 		while ((**tok_val >= 'A' && **tok_val <= 'Z') \
-		|| (**tok_val >= 'a' && **tok_val <= 'z') || **tok_val == '_')
+		|| (**tok_val >= 'a' && **tok_val <= 'z') || **tok_val == '_' \
+		|| (**tok_val >= '0' && **tok_val <= '9'))
 			(*tok_val)++;
 		if (!env)
 			return (true);
