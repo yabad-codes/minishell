@@ -36,7 +36,8 @@ t_env	*copy_env(char **envp)
 	{
 		instance[0] = ft_strchr(envp[i], '=');
 		instance[1] = ft_strchr(envp[i], '\0');
-		if (!ft_strncmp(envp[i], "OLDPWD", ft_max(ft_strlen("OLDPWD"), instance[0] - envp[i])))
+		if (!ft_strncmp(envp[i], "OLDPWD", \
+			ft_max(ft_strlen("OLDPWD"), instance[0] - envp[i])))
 		{
 			i++;
 			continue ;

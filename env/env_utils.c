@@ -36,8 +36,11 @@ void	modify_key(t_env **env, char *key, char *value)
 			ft_max(ft_strlen(key), ft_strlen(tmp->key))))
 		{
 			free(key);
-			free(tmp->value);
-			tmp->value = value;
+			if (value != NULL)
+			{
+				free(tmp->value);
+				tmp->value = value;
+			}
 			return ;
 		}
 		tmp = tmp->next;

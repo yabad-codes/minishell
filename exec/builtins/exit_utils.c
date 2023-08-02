@@ -22,7 +22,7 @@ static bool	compare(const char *str, const char *value)
 		else if (*str < *value)
 			return (true);
 		str++;
-		value++;	
+		value++;
 	}
 	return (true);
 }
