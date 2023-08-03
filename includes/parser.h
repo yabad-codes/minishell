@@ -112,7 +112,8 @@ void	delete_node(t_node *node);
  * @return The value of the variable if EXPANDABLE,
  * or the variable itself if not.
 */
-char	*expand_var(t_token *token_head, t_expand is_expand, char *token_val);
+char	*expand_var(t_token *token_head, t_expand is_expand, char *token_val, \
+				bool is_here_doc);
 
 /**
  * @brief remove quotes for t_token variables

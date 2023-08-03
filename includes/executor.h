@@ -83,7 +83,8 @@ void			child_handler(int sig);
 /**
  * Redirections
 */
-void			handling_redirections(t_redir *list, t_redir_error *error);
+void			handling_redirections(t_redir *list, \
+					t_redir *head, t_redir_error *error);
 void			out_redir(char *filename, t_redir_error *error, int *fd_out);
 void			append_redir(char *filename, t_redir_error *error, int *fd_out);
 void			in_redir(char *filename, t_redir_error *error, int *fd_in);

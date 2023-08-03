@@ -38,7 +38,7 @@ static int	cd_home(t_env **env, char *env_var, char *err)
 	}
 	edit_env_vars(env, buf);
 	if (!ft_strncmp("OLDPWD", env_var, ft_strlen(env_var)))
-		printf("%s\n", buf);
+		(ft_putstr_fd(buf, 1), ft_putstr_fd("\n", 1));
 	return (0);
 }
 

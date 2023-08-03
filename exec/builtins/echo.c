@@ -52,11 +52,12 @@ void	ft_echo(t_cmd *cmd)
 	get_print_pos(cmd, &i, &n_option);
 	while (cmd->cmd_args[i])
 	{
-		printf("%s", cmd->cmd_args[i]);
+		ft_putstr_fd(cmd->cmd_args[i], 1);
 		if (cmd->cmd_args[i + 1])
-			printf(" ");
+			ft_putstr_fd(" ", 1);
 		i++;
 	}
 	if (n_option == false)
-		printf("\n");
+		ft_putstr_fd("\n", 1);
+	g_data.exit_status = 0;
 }

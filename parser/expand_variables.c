@@ -100,7 +100,8 @@ bool	detect_special_chars(t_token *tok_head, char **val, \
 	return (false);
 }
 
-char	*expand_var(t_token *token_head, t_expand is_expand, char *token_val)
+char	*expand_var(t_token *token_head, t_expand is_expand, char *token_val, \
+				bool is_here_doc)
 {
 	char	*res;
 	char	*temp;
@@ -115,7 +116,8 @@ char	*expand_var(t_token *token_head, t_expand is_expand, char *token_val)
 	temp = token_val;
 	while (*token_val)
 	{
-		toggle_quote(*token_val, &toggle);
+		if (is_here_doc == false)
+			toggle_quote(*token_val, &toggle);
 		if (detect_special_chars(token_head, &res, &token_val, toggle) \
 		|| detect_env_and_join(token_head, &token_val, &res, toggle))
 			continue ;

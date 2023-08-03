@@ -84,7 +84,7 @@ t_token	*expand(t_token *token_head)
 	while (token_head)
 	{
 		token_head->token = expand_var(tmp, token_head->expand, \
-			token_head->token);
+			token_head->token, false);
 		rm_quotes = remove_quotes(tmp, token_head->token, token_head, prev_tok);
 		free(token_head->token);
 		token_head->token = rm_quotes;

@@ -71,6 +71,7 @@ char	*remove_quotes(t_token *token_head, char *token_value, \
 	vars.dst = vars.val;
 	vars.in_single_quotes = 0;
 	vars.in_double_quotes = 0;
+	token->hrd_quotes = false;
 	while (*token_value)
 	{
 		if (quotes_checks(*token_value, &vars, token, prev_tok))

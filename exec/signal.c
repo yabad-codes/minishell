@@ -16,9 +16,9 @@ void	handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		printf("\n");
+		ft_putstr_fd("\n", 1);
 		rl_on_new_line();
-		rl_replace_line("", 0);
+		// rl_replace_line("", 0);
 		rl_redisplay();
 		g_data.exit_status = 1;
 	}

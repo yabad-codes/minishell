@@ -18,7 +18,10 @@ static void	print_env(t_env *env)
 	{
 		if (env->key && env->value)
 		{
-			printf("%s=%s\n", env->key, env->value);
+			ft_putstr_fd(env->key, 1);
+			ft_putstr_fd("=", 1);
+			ft_putstr_fd(env->value, 1);
+			ft_putstr_fd("\n", 1);
 			env = env->next;
 		}
 		else
@@ -30,7 +33,7 @@ void	ft_env(t_cmd *cmd, t_env *env)
 {
 	if (cmd->cmd_args[1])
 	{
-		printf("env: %s: No such file or directory\n", cmd->cmd_args[1]);
+		print_error("env", cmd->cmd_args[1], "No such file or directory");
 		g_data.exit_status = 127;
 		return ;
 	}

@@ -36,7 +36,7 @@ void	ft_exit(t_cmd *cmd)
 		return ;
 	}
 	if (!get_args_num(cmd))
-		exit(EXIT_SUCCESS);
+		exit(g_data.exit_status);
 	else
 		exit(ft_atoi(cmd->cmd_args[1]));
 }

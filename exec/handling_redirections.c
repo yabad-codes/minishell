@@ -32,7 +32,7 @@ void	write_to_pipe(bool hrd_quotes, char *delim, int fd_out)
 			break ;
 		}
 		if (hrd_quotes == false)
-			line = expand_var(NULL, TRUE, line);
+			line = expand_var(NULL, TRUE, line, true);
 		tmp = ft_strjoin(line, "\n");
 		if (!tmp)
 			exit(EXIT_FAILURE);
@@ -106,7 +106,8 @@ void	handling_herdocs(t_ast *ast)
 	}
 }
 
-void	handling_redirections(t_redir *list, t_redir_error *error)
+void	handling_redirections(t_redir *list, \
+t_redir *head, t_redir_error *error)
 {
 	t_fds			fds;
 
@@ -115,7 +116,7 @@ void	handling_redirections(t_redir *list, t_redir_error *error)
 	error->is_error = false;
 	while (list)
 		(launch_redirections(list, error, &fds), list = list->next);
-	if (error->is_error == false)
+	if (error->is_error == false && head != NULL)
 	{
 		if (fds.fd_in != -1)
 		{
@@ -128,7 +129,7 @@ void	handling_redirections(t_redir *list, t_redir_error *error)
 			close(fds.fd_out);
 		}
 		g_data.exit_status = 0;
-		return ;
 	}
-	error_file_message(error->filename, error->error_message);
+	else if (error->is_error == true)
+		error_file_message(error->filename, error->error_message);
 }

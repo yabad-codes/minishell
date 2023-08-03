@@ -17,5 +17,7 @@ void	ft_pwd(void)
 	char	cwd[PATH_MAX];
 
 	getcwd(cwd, PATH_MAX);
-	printf("%s\n", cwd);
+	ft_putstr_fd(cwd, 1);
+	ft_putstr_fd("\n", 1);
+	g_data.exit_status = 0;
 }

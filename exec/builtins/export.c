@@ -34,11 +34,16 @@ void	print_declare_vars(t_env *env)
 {
 	while (env)
 	{
-		printf("declare -x ");
+		ft_putstr_fd("declare -x ", 1);
 		if (env->key && env->value)
-			printf("%s=\"%s\"\n", env->key, env->value);
+		{
+			ft_putstr_fd(env->key, 1);
+			ft_putstr_fd("=\"", 1);
+			ft_putstr_fd(env->value, 1);
+			ft_putstr_fd("\"\n", 1);
+		}
 		if (!env->value)
-			printf("%s\n", env->key);
+			(ft_putstr_fd(env->key, 1), ft_putstr_fd("\n", 1));
 		env = env->next;
 	}
 }
