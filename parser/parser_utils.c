@@ -65,7 +65,7 @@ char	*remove_quotes(t_token *token_head, char *token_value, \
 {
 	t_quote_vars	vars;
 
-	vars.val = malloc(strlen(token_value) + 1);
+	vars.val = malloc(ft_strlen(token_value) + 1);
 	if (!vars.val)
 		free_tokens_and_exit(token_head);
 	vars.dst = vars.val;
