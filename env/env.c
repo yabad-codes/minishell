@@ -39,7 +39,8 @@ t_env	*copy_env(char **envp)
 		if (!ft_strncmp(envp[i], "OLDPWD", \
 			ft_max(ft_strlen("OLDPWD"), instance[0] - envp[i])))
 		{
-			add_key(&env, new_key(ft_substr(envp[i], 0, instance[0] - envp[i]), NULL));
+			add_key(&env, new_key(ft_substr(envp[i], 0, \
+				instance[0] - envp[i]), NULL));
 			i++;
 			continue ;
 		}
